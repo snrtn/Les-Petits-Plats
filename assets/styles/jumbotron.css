@@ -1,0 +1,110 @@
+/* Anton */
+@font-face {
+  font-family: Anton;
+  src: url('../fonts/Anton-Regular.ttf');
+}
+
+/* Manrope */
+@font-face {
+  font-family: Manrope;
+  src: url('../fonts/Manrope-Regular.ttf');
+}
+
+/* jumbotron */
+.my__jumbotron {
+  height: 66.7rem;
+  background-image: url('../images/jumbotron.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.my__nav img {
+  width: 20.7rem;
+  height: 2.5rem;
+  margin-top: 5.1rem;
+  margin-left: 6.9rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.my__recherche {
+  display: flex;
+  justify-content: center;
+  height: inherit;
+}
+.my__recherche article {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 5rem;
+}
+.my__recherche article h1 {
+  width: 89rem;
+  height: 13.2rem;
+  color: #ffd15b;
+  font-weight: 400;
+  font-size: 4.4rem;
+  line-height: 6.6rem;
+  text-align: center;
+  font-family: 'Anton', sans-serif;
+}
+.my__recherche article div {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  height: 7.2rem;
+}
+.my__recherche article div input {
+  width: 95.4rem;
+  height: inherit;
+  border: none;
+  border-radius: 1.1rem;
+  padding: 0 8rem 0 3.5rem;
+  font-size: 1.6rem;
+  color: #7a7a7a;
+  font-weight: 400;
+  line-height: 2.1rem;
+  font-family: 'Manrope', sans-serif;
+}
+.my__recherche article div input:focus {
+  outline: 0.3rem solid #ffd15b;
+}
+.my__recherche article div button {
+  position: absolute;
+  width: 5.1rem;
+  height: 5.2rem;
+  right: 1.2rem;
+  background-color: #1b1b1b;
+  border-radius: 1rem;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.my__recherche article div button:hover {
+  background-color: #ffd15b;
+}
+.my__recherche article div button:active {
+  animation: press 0.2s linear;
+}
+.my__recherche article div button:hover img {
+  filter: brightness(0%);
+}
+.my__recherche article div button img {
+  width: 2.7rem;
+  height: 2.8rem;
+}
+@keyframes press {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  to {
+    transform: scale(1);
+  }
+}

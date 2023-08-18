@@ -1,0 +1,98 @@
+<!doctype html>
+
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- icon site -->
+    <link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/x-icon" />
+
+    <!-- SEO -->
+    <meta name="description" content="Cherchez parmi plus de 1500 recettes du quotidien,simples et délicieuses" />
+    <meta
+      name="keywords"
+      content="Les Petits Plats, Cherchez parmi plus de 1500 recettes du quotidien, recettes du quotidien, simples et délicieuses"
+    />
+
+    <!-- title -->
+    <title>Les Petits Plats</title>
+
+    <!-- styles -->
+    <link rel="stylesheet" href="./assets/styles/normalize.css" />
+    <link rel="stylesheet" href="./assets/styles/jumbotron.css" />
+    <link rel="stylesheet" href="./assets/styles/filter.css" />
+    <link rel="stylesheet" href="./assets/styles/card.css" />
+  </head>
+
+  <body>
+    <!-- jumbotron -->
+    <section class="my__jumbotron">
+      <!-- nav -->
+      <div class="my__nav">
+        <a href="javascript:void(0);" aria-label="Aller à la page d'accueil" tabindex="1">
+          <img
+            aria-label="C'est logo de petits plats"
+            src="./assets/images/logo.svg"
+            alt="C'est logo de petits plats"
+          />
+        </a>
+      </div>
+
+      <!-- recherche -->
+      <div class="my__recherche">
+        <article>
+          <h1 aria-label="Cherchez parmi plus de 1500 recettes du quotidien,simples et délicieuses">
+            CHERCHEZ PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN,SIMPLES ET DÉLICIEUSES
+          </h1>
+          <div>
+            <input
+              id="fieldKeypress"
+              class="fieldSearch"
+              name="fieldSearch"
+              type="search"
+              placeholder="Rechercher une recette, un ingrédient, ..."
+              aria-label="Rechercher une recette, un ingrédient, ..."
+            />
+            <button class="btnSearch" aria-label="C'est un bouton de recherche">
+              <img
+                src="./assets/images/icon_search.svg"
+                alt="C'est icon de recherche"
+                aria-label="C'est icon de recherche"
+              />
+            </button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- filter -->
+    <section>
+      <!-- Ingrédients -->
+      <select name="" id="">
+        <option value=""></option>
+      </select>
+
+      <!-- Appareils -->
+      <select name="" id="">
+        <option value=""></option>
+      </select>
+
+      <!-- Ustensiles -->
+      <select name="" id="">
+        <option value=""></option>
+      </select>
+
+      <!-- chiffre -->
+      <h1></h1>
+    </section>
+
+    <!-- card -->
+    <section>
+      <div></div>
+    </section>
+
+    <!-- scripts -->
+    <script type="module" src="./scripts/utils/index.js"></script>
+  </body>
+</html>
