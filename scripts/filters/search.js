@@ -1,46 +1,28 @@
 "use strict";
 
-const btnSearch = document.querySelector('.btnSearch')
-const fieldKeypress = document.getElementById('fieldKeypress');
-const fieldSearch = document.querySelector('.fieldSearch');
+const FIELD_SEARCH = document.querySelector('.fieldSearch');
+const BTN_SEARCH = document.querySelector('.btnSearch')
+const FIELD_KEYPRESS = document.getElementById('fieldKeypress');
+
+let result = null;
+FIELD_SEARCH.addEventListener('change', function (event) {
+  result = event.target.name === 'fieldSearch' && event.target.value;
+})
 
 const search = (data) => {
-  // reset value
-  let result = null;
-
-  // onchange event
-  fieldSearch.addEventListener('change', function (event) {
-    if (event.target.name === 'fieldSearch') {
-      result = event.target.value;
-      return false;
-    } else {
-      return true;
-    }
-  })
-
-  // action button click
-  btnSearch.addEventListener('click', function () {
-    handleSearch(data, result);
+  BTN_SEARCH.addEventListener('click', function () {
+    handleSearch(data);
   });
-
-  // action button keydown
-  fieldKeypress.addEventListener('keydown', function (event) {
-    handleKeypress(event, data, result);
+  FIELD_KEYPRESS.addEventListener('keyup', function (event) {
+    handleKeypress(event, data);
   });
-  
 }
 
-function handleSearch(data, result) {
+function handleSearch(data) {
   console.log('get data', data, result);
 }
-
-function handleKeypress(event, data, result) {
-  if(event.keyCode === 13 || event.key === 'Enter') { 
-      console.log(data, result);
-      return false; 
-  } else {
-      return true;
-  }
+function handleKeypress(event, data) {
+  event.keyCode === 13 || event.key === 'Enter' ? console.log(data, result) : false;
 }
 
 export default search;

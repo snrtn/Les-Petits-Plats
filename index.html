@@ -4,21 +4,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- icon site -->
     <link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/x-icon" />
-
-    <!-- SEO -->
     <meta name="description" content="Cherchez parmi plus de 1500 recettes du quotidien,simples et délicieuses" />
     <meta
       name="keywords"
       content="Les Petits Plats, Cherchez parmi plus de 1500 recettes du quotidien, recettes du quotidien, simples et délicieuses"
     />
-
-    <!-- title -->
     <title>Les Petits Plats</title>
-
-    <!-- styles -->
     <link rel="stylesheet" href="./assets/styles/normalize.css" />
     <link rel="stylesheet" href="./assets/styles/jumbotron.css" />
     <link rel="stylesheet" href="./assets/styles/filter.css" />
@@ -26,9 +18,7 @@
   </head>
 
   <body>
-    <!-- jumbotron -->
     <section class="my__jumbotron">
-      <!-- nav -->
       <div class="my__nav">
         <a href="javascript:void(0);" aria-label="Aller à la page d'accueil" tabindex="1">
           <img
@@ -38,8 +28,6 @@
           />
         </a>
       </div>
-
-      <!-- recherche -->
       <div class="my__recherche">
         <article>
           <h1 aria-label="Cherchez parmi plus de 1500 recettes du quotidien,simples et délicieuses">
@@ -66,33 +54,61 @@
       </div>
     </section>
 
-    <!-- filter -->
-    <section>
-      <!-- Ingrédients -->
-      <select name="" id="">
-        <option value=""></option>
-      </select>
-
-      <!-- Appareils -->
-      <select name="" id="">
-        <option value=""></option>
-      </select>
-
-      <!-- Ustensiles -->
-      <select name="" id="">
-        <option value=""></option>
-      </select>
-
-      <!-- chiffre -->
-      <h1></h1>
+    <section class="my__filter">
+      <div class="filterContainer"></div>
     </section>
 
-    <!-- card -->
-    <section>
-      <div></div>
+    <section class="my__card">
+      <div>
+        <article>
+          <div class="my__card-iamge">
+            <img src="" alt="" />
+            <div>
+              <p>10<span>min</span></p>
+            </div>
+          </div>
+          <div class="my__card-wrapper">
+            <div class="my__card-infos">
+              <h1>Titre de la recette</h1>
+              <div class="my__card-recette">
+                <h2>RECETTE</h2>
+                <p>
+                  Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2
+                  citrons et le sucre. Mixer jusqu'à avoir la consistence désirée.
+                </p>
+              </div>
+              <div class="my__card-ingredient">
+                <h2>Ingrédients</h2>
+                <article>
+                  <div class="ingredient__info">
+                    <h3>Lait de coco</h3>
+                    <p>400<span>ml</span></p>
+                  </div>
+                  <div class="ingredient__info">
+                    <h3>Jus de citron</h3>
+                    <p>2<span></span></p>
+                  </div>
+                  <div class="ingredient__info">
+                    <h3>Crème de coco</h3>
+                    <p>2<span>cuillères à soupe</span></p>
+                  </div>
+                  <div class="ingredient__info">
+                    <h3>Sucre</h3>
+                    <p>30<span>grammes</span></p>
+                  </div>
+                  <div class="ingredient__info">
+                    <h3>Glaçons</h3>
+                    <p><span></span></p>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
     </section>
 
-    <!-- scripts -->
-    <script type="module" src="./scripts/utils/index.js"></script>
+    <script type="module" src="./scripts/utils/app.js"></script>
+    <script src="./scripts/pages/index.js"></script>
   </body>
 </html>

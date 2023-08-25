@@ -1,6 +1,5 @@
 "use strict";
 
-// appeler .json file
 const URL = "./data/recipes.json";
 
 const fetchApp = async () => {
