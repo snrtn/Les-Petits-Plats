@@ -1,11 +1,11 @@
 "use strict";
 
 import fetchApp from "./fetchApp.js";
-import handleSearch from '../filters/search.js';
+import displayCard from '../pages/displayCard.js';
 
 const app = async () => {
-  const DATA = await fetchApp();
-  handleSearch(DATA);
+  const data = await fetchApp();
+  displayCard(data);
 };
 
 window.addEventListener("load", app);

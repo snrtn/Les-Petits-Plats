@@ -1,15 +1,15 @@
 "use strict";
 
-const FILTER_CONTAINER = document.querySelector('.filterContainer');
+const filterContainer = document.querySelector('.filterContainer');
 
-const displayFilter = () => {
-  const arrFilter = [
+const displayTag = () => {
+  const nameArr = [
     { name: 'Ingrédients'},
     { name: 'Appareils'},
     { name: 'Ustensiles'}
   ];
 
-  let item = arrFilter.map((items) => {
+  let item = nameArr.map((items) => {
     let { name } = items;
     return `
       <div>
@@ -41,27 +41,27 @@ const displayFilter = () => {
   })
   .join("");
 
-  FILTER_CONTAINER.innerHTML = item;
+  filterContainer.innerHTML = item;
 
   window.handleFilter = (event) =>{
-    const CONTAINER = event.closest(":not(.btnFilter)");
-    const BTN_FILTER = event.closest(".btnFilter");
-    const ITEM = CONTAINER.querySelector('.item');
-    const IMG = CONTAINER.querySelector('.btnFilter img');
+    const container = event.closest(":not(.btnFilter)");
+    const btnFilter = event.closest(".btnFilter");
+    const item = container.querySelector('.item');
+    const img = container.querySelector('.btnFilter img');
     
-    if(ITEM.style.display === 'none') {
-      BTN_FILTER.style.borderBottomLeftRadius = '0rem';
-      BTN_FILTER.style.borderBottomRightRadius = '0rem';
-      ITEM.style.display = 'flex';
-      IMG.style.transform = 'rotate(180deg)'
+    if(item.style.display === 'none') {
+      btnFilter.style.borderBottomLeftRadius = '0rem';
+      btnFilter.style.borderBottomRightRadius = '0rem';
+      item.style.display = 'flex';
+      img.style.transform = 'rotate(180deg)'
     } else {
-      BTN_FILTER.style.borderBottomLeftRadius = '1.1rem';
-      BTN_FILTER.style.borderBottomRightRadius = '1.1rem';
-      ITEM.style.display = 'none';
-      IMG.style.transform = 'rotate(0deg)'
+      btnFilter.style.borderBottomLeftRadius = '1.1rem';
+      btnFilter.style.borderBottomRightRadius = '1.1rem';
+      item.style.display = 'none';
+      img.style.transform = 'rotate(0deg)'
     }
   }
 };
 
-displayFilter();
+displayTag();
 
