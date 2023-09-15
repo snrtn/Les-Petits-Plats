@@ -22,7 +22,6 @@
 .btnFilter {
   width: 19.5rem;
   height: 5.6rem;
-  border: none;
   background: #fff;
   cursor: pointer;
   border-radius: 1.1rem;
@@ -31,6 +30,8 @@
   justify-content: space-between;
   align-items: center;
   margin-right: 5rem;
+  position: relative;
+  border: 1px solid #fff;
 }
 .btnFilter p {
   font-family: Manrope;
@@ -48,6 +49,9 @@
   border-bottom-left-radius: 1.1rem;
   border-bottom-right-radius: 1.1rem;
   overflow: hidden;
+  position: absolute;
+  z-index: 999;
+  border-bottom: 0.6px solid rgba(211, 211, 211, 0.65);
 }
 .item div {
   position: relative;
@@ -82,10 +86,11 @@
 }
 .check {
   width: 100%;
-  min-height: 0rem;
+  min-height: 5rem;
   max-height: 32rem;
+  display: none;
   box-sizing: border-box;
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
   align-items: left;
   overflow: scroll;

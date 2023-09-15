@@ -1,12 +1,12 @@
 "use strict";
 
-const URL = "./data/recipes.json";
+const dataJson = "./data/recipes.json";
 
 const fetchApp = async () => {
   try {
-    const RESPONSE = await fetch(URL);
-    const DATA = await RESPONSE.json();
-    return DATA;
+    const response = await fetch(dataJson);
+    const data = await response.json();
+    return data;
   } catch (error) {
     return false;
   }

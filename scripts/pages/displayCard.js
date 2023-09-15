@@ -16,15 +16,16 @@ const displayCard = (data) => {
       if( unit === undefined ) {
         unit = '';
       }
-
+      
       return `
-        <div class="ingredient__info">
-          <h3>${ingredient}</h3>
-          <p>${quantity}<span>${unit}</span></p>
-        </div>
+      <div class="ingredient__info">
+        <h3>${ingredient}</h3>
+        <p>${quantity}<span>${unit}</span></p>
+      </div>
       `
     }).join("");
 
+    // card
     return `
       <div data-index="${id}">
         <article>
