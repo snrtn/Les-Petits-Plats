@@ -1,35 +1,48 @@
 "use strict";
 
 import displayCard from '../pages/displayCard.js';
-import displayTag from '../pages/displayTag.js';
+import choice from './choice.js';
 
 const fieldSearch = document.querySelector('.fieldSearch');
 const btnSearch = document.querySelector('.btnSearch')
 const fieldKeypress = document.getElementById('fieldKeypress');
 const err = document.querySelector('.err');
+const errMessage = "Veuillez entrer 3 caractères ou plus";
 
+// global vlaue
 let result = "";
 let arrResult = [];
 
+// onchange target.value
 fieldSearch.addEventListener('change', function (event) {
-  if ( event.target.value.length < 3 ) {
-    err.innerText = "Veuillez entrer 3 caractères ou plus";
-    result = "";
-  } else {
-    err.innerText = "";
+  if ( event.target.value.length >= 3 ) {
     result = event.target.name === 'fieldSearch' && event.target.value;
+  } else {
+    result = "";
   }
 })
 
+// action start
 const search = (data) => {
   btnSearch.addEventListener('click', function () {
-    handleSearch(data);
+    if (result.length >= 3) {
+      err.innerText = "";
+      handleSearch(data);
+    } else {
+      err.innerText = errMessage;
+    }
   });
   fieldKeypress.addEventListener('keyup', function (event) {
-    handleKeypress(event, data);
+    if (result.length >= 3) {
+      err.innerText = "";
+      handleKeypress(event, data);
+    } else {
+      err.innerText = errMessage;
+    }
   });
 }
 
+// find target.value
 let searchTool = (data) => {
   let resultName = data.recipes.filter(value => {
     return value.name.toLowerCase().includes(result);
@@ -59,23 +72,28 @@ let searchTool = (data) => {
 
   // duplicate item delete
   const reData = arrResult.filter((character, idx, arr)=>{
-    return arr.findIndex((item) => item.name === character.name && item.company === character.company) === idx
+    return arr.findIndex((item) => item.name === character.name && item.id === character.id) === idx
   });
 
-  // id 1, 2, 3
+  // id = 1, 2, 3
   reData.sort(function(a, b) {
     return a.id - b.id;
   });
 
+  // add array
   arrResult = {recipes:reData};
+
+  // send data
   displayCard(arrResult);
-  displayTag(arrResult);
+  choice(arrResult);
 }
 
+// action click
 function handleSearch(data) {
   searchTool(data)
 }
 
+// action keypress
 function handleKeypress(event, data) {
   if (event.keyCode === 13 || event.key === 'Enter') {
     searchTool(data)

@@ -2,65 +2,38 @@
 
 const filterContainer = document.querySelector('.filterContainer');
 
-const displayTag = (data) => {
-  const nameArr = [
-    { name: 'Ingrédients'},
-    { name: 'Appareils'},
-    { name: 'Ustensiles'}
-  ];
-  
-  // Ingrédients
-  let arrIngredientsGet = [];
-  data.recipes.map((item) => {
-    let {ingredients} = item;
-    ingredients.map(items => {
-      let {ingredient} = items;
-      arrIngredientsGet.push(ingredient)
-    })
-  })
-  let arrIngredients = arrIngredientsGet.filter((element, index) => {
-    arrIngredientsGet.sort();
-    return arrIngredientsGet.indexOf(element) === index;
-  });
-  let mapIngredients = arrIngredients.map((index) => {
+const nameArr = [
+  { name: 'Ingrédients'},
+  { name: 'Appareils'},
+  { name: 'Ustensiles'}
+]; 
+
+const displayTag = (arrIngredients, arrAppareils, arrUstensiles, arrIngredientsChoice, arrAppareilsChoice, arrUstensilesChoice) => {
+
+  // différence entre deux ensembles
+  let differenceIngredients = arrIngredients.filter(x => !arrIngredientsChoice.includes(x));
+  let differenceAppareils = arrAppareils.filter(x => !arrAppareilsChoice.includes(x));
+  let differenceUstensiles = arrUstensiles.filter(x => !arrUstensilesChoice.includes(x));
+
+  // display Ingrédients & Appareils &Ustensiles
+  let mapIngredients = differenceIngredients.map((index) => {
     return `
       <li onclick="handleIngredient(this)">${index}</li>
     `
   }).join('');
-
-  // Appareils
-  let arrAppareilsGet = [];
-  data.recipes.map((item) => {
-    let {appliance} = item;
-      arrAppareilsGet.push(appliance)
-  })
-  let arrAppareils = arrAppareilsGet.filter((element, index) => {
-    arrAppareilsGet.sort();
-    return arrAppareilsGet.indexOf(element) === index;
-  });
-  let mapAppareils = arrAppareils.map((index) => {
+  let mapAppareils = differenceAppareils.map((index) => {
     return `
       <li onclick="handleAppareils(this)">${index}</li>
     `
   }).join('');
-
-  // Ustensiles
-  let arrUstensilesGet = [];
-  data.recipes.map((item) => {
-    let {ustensils} = item;
-      arrUstensilesGet.push(...ustensils)
-  })
-  let arrUstensiles = arrUstensilesGet.filter((element, index) => {
-    arrUstensilesGet.sort();
-    return arrUstensilesGet.indexOf(element) === index;
-  });
-  let mapUstensiles = arrUstensiles.map((index) => {
+  let mapUstensiles = differenceUstensiles.map((index) => {
     return `
       <li onclick="handleUstensiles(this)">${index}</li>
     `
   }).join('');
 
-  // button
+  
+  // display tags
   let item = nameArr.map((items) => {
     let { name } = items;
     
@@ -76,9 +49,6 @@ const displayTag = (data) => {
               <input type="search" />
               <img src="'../../assets/images/icon_search.svg" alt="" />
             </div>
-            <ul class="check ingredient">
-              
-            </ul>
             <ul class="noCheck">
               ${mapIngredients}
             </ul>
@@ -94,12 +64,9 @@ const displayTag = (data) => {
           </button>
           <div class="item">
             <div>
-              <input type="search" />
+              <input type="search"/>
               <img src="'../../assets/images/icon_search.svg" alt="" />
             </div>
-            <ul class="check appareil">
-              
-            </ul>
             <ul class="noCheck">
               ${mapAppareils}
             </ul>
@@ -115,12 +82,9 @@ const displayTag = (data) => {
           </button>
           <div class="item">
             <div>
-              <input type="search" />
+              <input type="search"/>
               <img src="'../../assets/images/icon_search.svg" alt="" />
             </div>
-            <ul class="check ustensile">
-              
-            </ul>
             <ul class="noCheck">
               ${mapUstensiles}
             </ul>
@@ -131,37 +95,7 @@ const displayTag = (data) => {
     
   })
   .join("");
-
   filterContainer.innerHTML = item;
-
-  window.handleIngredient = (event) => {
-    console.log(event.innerText);
-  }
-  window.handleAppareils = (event) => {
-    console.log(event.innerText);
-  }
-  window.handleUstensiles = (event) => {
-    console.log(event.innerText);
-  }
-
-  window.handleFilter = (event) =>{
-    const container = event.closest(":not(.btnFilter)");
-    const btnFilter = event.closest(".btnFilter");
-    const item = container.querySelector('.item');
-    const img = container.querySelector('.btnFilter img');
-    
-    if(item.style.display === 'none') {
-      btnFilter.style.borderBottomLeftRadius = '0rem';
-      btnFilter.style.borderBottomRightRadius = '0rem';
-      item.style.display = 'flex';
-      img.style.transform = 'rotate(180deg)'
-    } else {
-      btnFilter.style.borderBottomLeftRadius = '1.1rem';
-      btnFilter.style.borderBottomRightRadius = '1.1rem';
-      item.style.display = 'none';
-      img.style.transform = 'rotate(0deg)'
-    }
-  }
 };
 
 export default displayTag;

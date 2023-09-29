@@ -1,12 +1,15 @@
 "use strict";
 
 const myCard = document.querySelector('.my__card');
+const myNum = document.querySelector('.my__num');
 
 const displayCard = (data) => {
   let item = data.recipes.map((items) => {
     let {id, image, name, time, description, ingredients} = items;
 
-    // card ingredient
+    myNum.innerHTML = `${data.recipes.length}`;
+
+    // list ingredient
     let itemIngredient = ingredients.map((itemss) => {
       let {ingredient, quantity, unit} = itemss;
 
@@ -17,6 +20,7 @@ const displayCard = (data) => {
         unit = '';
       }
       
+      // display list ingredients
       return `
       <div class="ingredient__info">
         <h3>${ingredient}</h3>
@@ -25,7 +29,7 @@ const displayCard = (data) => {
       `
     }).join("");
 
-    // card
+    // display cards
     return `
       <div data-index="${id}">
         <article>
@@ -56,7 +60,6 @@ const displayCard = (data) => {
       </div>
     `
   }).join("");
-
   myCard.innerHTML = item;
 }
 
