@@ -7,7 +7,8 @@ const displayCard = (data) => {
   let item = data.recipes.map((items) => {
     let {id, image, name, time, description, ingredients} = items;
 
-    myNum.innerHTML = `${data.recipes.length}`;
+    // text: count card
+    myNum.innerHTML = `${data.recipes.length} recettes`;
 
     // list ingredient
     let itemIngredient = ingredients.map((itemss) => {

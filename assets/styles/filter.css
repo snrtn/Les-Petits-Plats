@@ -12,8 +12,24 @@
   src: url('../fonts/Manrope-Bold.ttf');
 }
 
+.filterMain {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 12rem;
+}
+
+.my__num {
+  font-family: Anton;
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 32px;
+  letter-spacing: 0em;
+  color: #1b1b1b;
+}
+
 .my__filter {
-  padding: 2rem 12rem 2rem 12rem;
   display: flex;
 }
 .filterContainer {

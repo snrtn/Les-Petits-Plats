@@ -49,8 +49,6 @@ const choice = (data) => {
     return arrUstensilesGet.indexOf(element) === index;
   });
 
-  
-
   // list action
   window.handleIngredient = (event) => {
     arrIngredientsChoice.push(`${event.innerText}`);
@@ -67,6 +65,10 @@ const choice = (data) => {
     displayTag(arrIngredients, arrAppareils, arrUstensiles, arrIngredientsChoice, arrAppareilsChoice, arrUstensilesChoice);
     displayTagsView(arrIngredientsChoice, arrAppareilsChoice, arrUstensilesChoice);
   }
+
+  
+
+
 
   // envoyer paramètre à
   displayTag(arrIngredients, arrAppareils, arrUstensiles, arrIngredientsChoice, arrAppareilsChoice, arrUstensilesChoice);
@@ -92,6 +94,5 @@ const choice = (data) => {
     }
   }
 } 
-
 
 export default choice;
