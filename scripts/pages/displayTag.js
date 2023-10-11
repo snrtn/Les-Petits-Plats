@@ -2,19 +2,18 @@
 
 const filterContainer = document.querySelector('.filterContainer');
 
-
 const nameArr = [
   { name: 'Ingrédients'},
   { name: 'Appareils'},
   { name: 'Ustensiles'}
 ]; 
 
-const displayTag = (arrIngredients, arrAppareils, arrUstensiles, arrIngredientsChoice, arrAppareilsChoice, arrUstensilesChoice) => {
+const displayTag = (ingredientTag, appareilTag, ustensileTag, ingredientCheck, appareilCheck, ustensileCheck ) => {
 
   // différence entre deux ensembles
-  let differenceIngredients = arrIngredients.filter(x => !arrIngredientsChoice.includes(x));
-  let differenceAppareils = arrAppareils.filter(x => !arrAppareilsChoice.includes(x));
-  let differenceUstensiles = arrUstensiles.filter(x => !arrUstensilesChoice.includes(x));
+  let differenceIngredients = ingredientTag.filter(x => !ingredientCheck.includes(x));
+  let differenceAppareils = appareilTag.filter(x => !appareilCheck.includes(x));
+  let differenceUstensiles = ustensileTag.filter(x => !ustensileCheck.includes(x));
 
   // display Ingrédients & Appareils &Ustensiles
   let mapIngredients = differenceIngredients.map((index) => {
@@ -24,12 +23,12 @@ const displayTag = (arrIngredients, arrAppareils, arrUstensiles, arrIngredientsC
   }).join('');
   let mapAppareils = differenceAppareils.map((index) => {
     return `
-      <li class="itemAppareil" onclick="handleAppareils(this)">${index}</li>
+      <li class="itemAppareil" onclick="handleAppareil(this)">${index}</li>
     `
   }).join('');
   let mapUstensiles = differenceUstensiles.map((index) => {
     return `
-      <li class="itemUstensile" onclick="handleUstensiles(this)">${index}</li>
+      <li class="itemUstensile" onclick="handleUstensile(this)">${index}</li>
     `
   }).join('');
 
@@ -124,14 +123,12 @@ const displayTag = (arrIngredients, arrAppareils, arrUstensiles, arrIngredientsC
   function onchangeIngredient(resultIngredient){
     for(let i = 0; i < differenceIngredients.length; i++) {
       console.log(itemIngredient[i]);
-    }
-    
 
-    for (let i = 0; i < differenceIngredients.length; i++) {
-      if (differenceIngredients[i] === resultIngredient){ 
-        differenceIngredients.indexOf(resultIngredient)
+      if (itemIngredient[i].innerText === resultIngredient){ 
+        console.log("itemIngredient: " + itemIngredient[i]);
+        console.log("resultIngredient: " + resultIngredient); 
       }
-    }  
+    } 
   }
   
 

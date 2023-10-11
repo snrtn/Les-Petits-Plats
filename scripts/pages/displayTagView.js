@@ -4,7 +4,7 @@ const tagsIngredient = document.querySelector('.tagsIngredient');
 const tagsAppareil = document.querySelector('.tagsAppareil');
 const tagsUstensile = document.querySelector('.tagsUstensile');
 
-const displayTagsView = (arrIngredientsChoice, arrAppareilsChoice, arrUstensilesChoice) => {
+const displayTagView = (arrIngredientsChoice, arrAppareilsChoice, arrUstensilesChoice) => {
 
   let mapIngredientsChoice = arrIngredientsChoice.map((index) => {
     return `
@@ -37,4 +37,4 @@ const displayTagsView = (arrIngredientsChoice, arrAppareilsChoice, arrUstensiles
   tagsUstensile.innerHTML = mapUstensilesChoice;
 }
 
-export default displayTagsView;
+export default displayTagView;

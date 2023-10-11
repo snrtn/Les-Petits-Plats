@@ -34,6 +34,7 @@
 
 .my__card div {
   height: 100%;
+  flex-basis: 200;
 }
 .my__card div article:first-child {
   width: 38rem;

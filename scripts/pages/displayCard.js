@@ -1,36 +1,32 @@
 "use strict";
 
+import {_map } from '../utils/_.js';
+
 const myCard = document.querySelector('.my__card');
-const myNum = document.querySelector('.my__num');
+const myTotal = document.querySelector('.my__num');
+const myNotFind = document.querySelector('.my__notFind');
 
-const displayCard = (data) => {
-  let item = data.recipes.map((items) => {
-    let {id, image, name, time, description, ingredients} = items;
+export default function displayCard(data) {
+  const message = "Il n'y a pas de recette correspondant";
+  (data.recipes.length <= 0) ? myNotFind.innerHTML = message : myNotFind.innerHTML = "";
 
-    // text: count card
-    myNum.innerHTML = `${data.recipes.length} recettes`;
+  myTotal.innerHTML = `${data.recipes.length} recettes`;
 
-    // list ingredient
-    let itemIngredient = ingredients.map((itemss) => {
-      let {ingredient, quantity, unit} = itemss;
+  myCard.innerHTML = _map(data.recipes, (lists) => {
+    let {id, image, name, time, description, ingredients } = lists;
 
-      if (quantity === undefined ) {
-        quantity = '';
-      }
-      if( unit === undefined ) {
-        unit = '';
-      }
-      
-      // display list ingredients
+    let info = _map(ingredients, (infos) => {
+      let {ingredient, quantity, unit } = infos;
+
+      (quantity === undefined ) ? quantity = '' : quantity = quantity;
+      (unit === undefined ) ? unit = '' : unit = unit;
+
       return `
-      <div class="ingredient__info">
-        <h3>${ingredient}</h3>
-        <p>${quantity}<span>${unit}</span></p>
-      </div>
-      `
-    }).join("");
+        <div class="ingredient__info">
+          <h3>${ingredient}</h3>
+          <p>${quantity}<span>${unit}</span></p>
+        </div>`}).join("");
 
-    // display cards
     return `
       <div data-index="${id}">
         <article>
@@ -52,16 +48,10 @@ const displayCard = (data) => {
               <div class="my__card-ingredient">
                 <h2>Ingrédients</h2>
                 <article>
-                  ${itemIngredient}
+                  ${info}
                 </article>
               </div>
             </div>
           </div>
         </article>
-      </div>
-    `
-  }).join("");
-  myCard.innerHTML = item;
-}
-
-export default displayCard;
+      </div>`}).join("");}

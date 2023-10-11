@@ -2,14 +2,14 @@
 
 import fetchApp from "./fetchApp.js";
 import displayCard from '../pages/displayCard.js';
-import choice from '../filters/choice.js';
+import check from '../filters/check.js';
 import search from '../filters/search.js';
 
 const app = async () => {
   const data = await fetchApp();
   displayCard(data);
-  choice(data)
   search(data);
+  check(data);
 };
 
 window.addEventListener("load", app);
