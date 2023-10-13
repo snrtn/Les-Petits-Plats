@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-const dataJson = "./data/recipes.json";
+const dataJson = './data/recipes.json';
 
 const fetchApp = async () => {
   try {

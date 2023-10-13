@@ -1,157 +1,197 @@
-"use strict";
+'use strict';
 
-const filterContainer = document.querySelector('.filterContainer');
+import { _map, _filter } from '../utils/_.js';
 
-const nameArr = [
-  { name: 'Ingrédients'},
-  { name: 'Appareils'},
-  { name: 'Ustensiles'}
-]; 
+const filter = document.querySelector('.filterContainer');
+let resultIngredient = '',
+  resultAppareil = '',
+  resultUstensil = '';
 
-const displayTag = (ingredientTag, appareilTag, ustensileTag, ingredientCheck, appareilCheck, ustensileCheck ) => {
+export default function displayTag(
+  ingredientTag,
+  appareilTag,
+  ustensileTag,
+  ingredientCheck,
+  appareilCheck,
+  ustensilCheck,
+) {
+  const arrName = [{ name: 'Ingrédients' }, { name: 'Appareils' }, { name: 'Ustensiles' }];
 
-  // différence entre deux ensembles
-  let differenceIngredients = ingredientTag.filter(x => !ingredientCheck.includes(x));
-  let differenceAppareils = appareilTag.filter(x => !appareilCheck.includes(x));
-  let differenceUstensiles = ustensileTag.filter(x => !ustensileCheck.includes(x));
+  let mapIngredient = _map(
+    _filter(ingredientTag, tag => !ingredientCheck.includes(tag)),
+    text => `<li class="itemIngredient" onclick="handleIngredient(this)">${text}</li>`,
+  ).join('');
+  let mapAppareil = _map(
+    _filter(appareilTag, tag => !appareilCheck.includes(tag)),
+    text => `<li class="itemAppareil" onclick="handleAppareil(this)">${text}</li>`,
+  ).join('');
+  let mapUstensil = _map(
+    _filter(ustensileTag, tag => !ustensilCheck.includes(tag)),
+    text => `<li class="itemUstensile" onclick="handleUstensile(this)">${text}</li>`,
+  ).join('');
 
-  // display Ingrédients & Appareils &Ustensiles
-  let mapIngredients = differenceIngredients.map((index) => {
-    return `
-      <li class="itemIngredient" onclick="handleIngredient(this)">${index}</li>
-    `
-  }).join('');
-  let mapAppareils = differenceAppareils.map((index) => {
-    return `
-      <li class="itemAppareil" onclick="handleAppareil(this)">${index}</li>
-    `
-  }).join('');
-  let mapUstensiles = differenceUstensiles.map((index) => {
-    return `
-      <li class="itemUstensile" onclick="handleUstensile(this)">${index}</li>
-    `
-  }).join('');
-
-  
-  // display tags
-  let item = nameArr.map((items) => {
-    let { name } = items;
-    
-    if(name === "Ingrédients"){
-      return `
-        <div>
-          <button class="btnFilter" onclick="handleFilter(this)">
-            <p>${name}</p>
-            <img src="/assets/images/arrowDown.svg" alt="" />
-          </button>
-          <div class="item">
-            <div>
-              <input type="search" class="fieldIngredient" name="fieldIngredient"/>
-              <img src="'../../assets/images/icon_search.svg" alt="" />
+  function start(arrName, mapIngredient, mapAppareil, mapUstensil) {
+    return _map(arrName, items => {
+      const { name } = items;
+      if (name === 'Ingrédients') {
+        return `
+          <div id="ing">
+            <button class="btnFilter" onclick="handleFilter(this)">
+              <p>${name}</p>
+              <img src="/assets/images/arrowDown.svg" alt="" />
+            </button>
+            <div class="item">
+              <div>
+                <input type="search" class="fieldIngredient" name="fieldIngredient"/>
+                <img src="'../../assets/images/icon_search.svg" alt="" />
+              </div>
+              <ul class="noCheck">
+                <spen class="errIngredient err"></spen>
+                ${mapIngredient}
+              </ul>
             </div>
+          </div>
+        `;
+      } else if (name === 'Appareils') {
+        return `
+          <div id="app">
+            <button class="btnFilter" onclick="handleFilter(this)">
+              <p>${name}</p>
+              <img src="/assets/images/arrowDown.svg" alt="" />
+            </button>
+            <div class="item">
+              <div>
+                <input type="search" class="fieldAppareil"  name="fieldAppareil"/>
+                <img src="'../../assets/images/icon_search.svg" alt="" />
+              </div>
             <ul class="noCheck">
-              ${mapIngredients}
+              <spen class="errAppareil err"></spen>
+              ${mapAppareil}
             </ul>
           </div>
-        </div>
-      `;
-    } else if (name === "Appareils") {
-      return `
-        <div>
-          <button class="btnFilter" onclick="handleFilter(this)">
-            <p>${name}</p>
-            <img src="/assets/images/arrowDown.svg" alt="" />
-          </button>
-          <div class="item">
-            <div>
-              <input type="search" class="fieldAppareil"  name="fieldAppareil"/>
-              <img src="'../../assets/images/icon_search.svg" alt="" />
-            </div>
-            <ul class="noCheck">
-              ${mapAppareils}
-            </ul>
           </div>
-        </div>
-      `;
-    } else {
-      return `
-        <div>
-          <button class="btnFilter" onclick="handleFilter(this)">
-            <p>${name}</p>
-            <img src="/assets/images/arrowDown.svg" alt="" />
-          </button>
-          <div class="item">
-            <div>
-              <input type="search" class="fieldUstensile" name="fieldUstensile"/>
-              <img src="'../../assets/images/icon_search.svg" alt="" />
+        `;
+      } else {
+        return `
+          <div id="ust">
+            <button class="btnFilter" onclick="handleFilter(this)">
+                <p>${name}</p>
+                <img src="/assets/images/arrowDown.svg" alt="" />
+              </button>
+              <div class="item">
+              <div>
+                <input type="search" class="fieldUstensile" name="fieldUstensile"/>
+                  <img src="'../../assets/images/icon_search.svg" alt="" />
+                </div>
+              <ul class="noCheck">
+                <spen class="errUstensil err"></spen>
+                ${mapUstensil}
+              </ul>
             </div>
-            <ul class="noCheck">
-              ${mapUstensiles}
-            </ul>
           </div>
-        </div>
-      `;
-    }
-    
-  })
-  .join("");
-  filterContainer.innerHTML = item;
-
-  
-  const fieldIngredient = document.querySelector('.fieldIngredient');
-  const fieldAppareil = document.querySelector('.fieldAppareil');
-  const fieldUstensile = document.querySelector('.fieldUstensile');
-  const itemIngredient = document.querySelectorAll('.itemIngredient');
-
-  
-  let resultIngredient = "";
-  let resultAppareil = "";
-  let resultUstensile = "";
-
-
-  // onchange target.value
-  fieldIngredient.addEventListener('change', function (event) {
-    if ( event.target.value.length >= 3 ) {
-      resultIngredient = event.target.name === 'fieldIngredient' && event.target.value;
-
-      onchangeIngredient(resultIngredient);
-    } else {
-      resultIngredient = "";
-    }
-  })
-
-  function onchangeIngredient(resultIngredient){
-    for(let i = 0; i < differenceIngredients.length; i++) {
-      console.log(itemIngredient[i]);
-
-      if (itemIngredient[i].innerText === resultIngredient){ 
-        console.log("itemIngredient: " + itemIngredient[i]);
-        console.log("resultIngredient: " + resultIngredient); 
+        `;
       }
-    } 
+    }).join('');
   }
-  
+  filter.innerHTML = start(arrName, mapIngredient, mapAppareil, mapUstensil);
 
-  fieldAppareil.addEventListener('change', function (event) {
-    if ( event.target.value.length >= 3 ) {
-      resultAppareil = event.target.name === 'fieldAppareil' && event.target.value;
+  function eventIng() {
+    const ingredient = document.querySelector('.fieldIngredient'),
+      errIngredient = document.querySelector('.errIngredient'),
+      err = 'Veuillez entrer 3 caractères ou plus',
+      resultIng = document.querySelector('#ing ul');
 
-      console.log(resultAppareil);
-    } else {
-      resultAppareil = "";
-    }
-  })
-  fieldUstensile.addEventListener('change', function (event) {
-    if ( event.target.value.length >= 3 ) {
-      resultUstensile = event.target.name === 'fieldUstensile' && event.target.value;
+    ingredient.addEventListener('keyup', event => {
+      const target = event.target;
+      target.value.length <= 2
+        ? ((resultIngredient = ''), (errIngredient.innerText = err))
+        : ((resultIngredient = target.name === 'fieldIngredient' && target.value),
+          (errIngredient.innerText = ''),
+          (mapIngredient = _map(
+            ingredientTag.filter(tag => tag.includes(resultIngredient)),
+            text => `<li class="itemIngredient" onclick="handleIngredient(this)">${text}</li>`,
+          ).join('')),
+          (resultIng.innerHTML = `<ul class="noCheck">
+            <spen class="errIngredient err"></spen>
+            ${mapIngredient}
+          </ul>`));
+      target.value.length === 0 &&
+        ((errIngredient.innerText = ''),
+        (mapIngredient = _map(
+          _filter(ingredientTag, tag => !ingredientCheck.includes(tag)),
+          text => `<li class="itemIngredient" onclick="handleIngredient(this)">${text}</li>`,
+        ).join('')),
+        (resultIng.innerHTML = `<ul class="noCheck">
+            <spen class="errIngredient err"></spen>
+            ${mapIngredient}
+          </ul>`));
+    });
+  }
+  function eventApp() {
+    const appareil = document.querySelector('.fieldAppareil'),
+      errAppareil = document.querySelector('.errAppareil'),
+      err = 'Veuillez entrer 3 caractères ou plus',
+      resultApp = document.querySelector('#app ul');
 
-      console.log(resultUstensile);
-    } else {
-      resultUstensile = "";
-    }
-  })
+    appareil.addEventListener('keyup', event => {
+      const target = event.target;
+      target.value.length <= 2
+        ? ((resultAppareil = ''), (errAppareil.innerText = err))
+        : ((resultAppareil = target.name === 'fieldAppareil' && target.value),
+          (errAppareil.innerText = ''),
+          (mapAppareil = _map(
+            appareilTag.filter(tag => tag.includes(resultAppareil)),
+            text => `<li class="itemAppareil" onclick="handleAppareil(this)">${text}</li>`,
+          ).join('')),
+          (resultApp.innerHTML = `<ul class="noCheck">
+            <spen class="errAppareil err"></spen>
+            ${mapAppareil}
+          </ul>`));
+      target.value.length === 0 &&
+        ((errAppareil.innerText = ''),
+        (mapAppareil = _map(
+          _filter(appareilTag, tag => !appareilCheck.includes(tag)),
+          text => `<li class="itemAppareil" onclick="handleAppareil(this)">${text}</li>`,
+        ).join('')),
+        (resultApp.innerHTML = `<ul class="noCheck">
+            <spen class="errAppareil err"></spen>
+            ${mapAppareil}
+          </ul>`));
+    });
+  }
+  function eventUst() {
+    const ustensil = document.querySelector('.fieldUstensile'),
+      errUstensil = document.querySelector('.errUstensil'),
+      err = 'Veuillez entrer 3 caractères ou plus',
+      resultUst = document.querySelector('#ust ul');
 
-};
-
-export default displayTag;
-
+    ustensil.addEventListener('keyup', event => {
+      const target = event.target;
+      target.value.length <= 2
+        ? ((resultUstensil = ''), (errUstensil.innerText = err))
+        : ((resultUstensil = target.name === 'fieldUstensile' && target.value),
+          (errUstensil.innerText = ''),
+          (mapUstensil = _map(
+            ustensileTag.filter(tag => tag.includes(resultUstensil)),
+            text => `<li class="itemUstensile" onclick="handleUstensile(this)">${text}</li>`,
+          ).join('')),
+          (resultUst.innerHTML = `<ul class="noCheck">
+            <spen class="errUstensil err"></spen>
+            ${mapUstensil}
+          </ul>`));
+      target.value.length === 0 &&
+        ((errUstensil.innerText = ''),
+        (mapUstensil = _map(
+          _filter(ustensileTag, tag => !appareilCheck.includes(tag)),
+          text => `<li class="itemUstensile" onclick="handleUstensile(this)">${text}</li>`,
+        ).join('')),
+        (resultUst.innerHTML = `<ul class="noCheck">
+            <spen class="errUstensil err"></spen>
+            ${mapUstensil}
+          </ul>`));
+    });
+  }
+  eventIng();
+  eventApp();
+  eventUst();
+}

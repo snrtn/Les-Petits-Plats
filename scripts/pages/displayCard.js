@@ -1,31 +1,33 @@
-"use strict";
+'use strict';
 
-import {_map } from '../utils/_.js';
+import searchCheck from '../filters/searchCheck.js';
+import { _map } from '../utils/_.js';
 
-const myCard = document.querySelector('.my__card');
-const myTotal = document.querySelector('.my__num');
-const myNotFind = document.querySelector('.my__notFind');
+const myCard = document.querySelector('.my__card'),
+  myTotal = document.querySelector('.my__num'),
+  myNotFind = document.querySelector('.my__notFind');
 
 export default function displayCard(data) {
-  const message = "Il n'y a pas de recette correspondant";
-  (data.recipes.length <= 0) ? myNotFind.innerHTML = message : myNotFind.innerHTML = "";
+  const message = "Il n'y a pas des recettes correspondant";
+  data.recipes.length <= 0 ? (myNotFind.innerHTML = message) : (myNotFind.innerHTML = '');
 
   myTotal.innerHTML = `${data.recipes.length} recettes`;
 
-  myCard.innerHTML = _map(data.recipes, (lists) => {
-    let {id, image, name, time, description, ingredients } = lists;
+  myCard.innerHTML = _map(data.recipes, lists => {
+    let { id, image, name, time, description, ingredients } = lists;
 
-    let info = _map(ingredients, (infos) => {
-      let {ingredient, quantity, unit } = infos;
+    let info = _map(ingredients, infos => {
+      let { ingredient, quantity, unit } = infos;
 
-      (quantity === undefined ) ? quantity = '' : quantity = quantity;
-      (unit === undefined ) ? unit = '' : unit = unit;
+      quantity === undefined ? (quantity = '') : (quantity = quantity);
+      unit === undefined ? (unit = '') : (unit = unit);
 
       return `
         <div class="ingredient__info">
           <h3>${ingredient}</h3>
           <p>${quantity}<span>${unit}</span></p>
-        </div>`}).join("");
+        </div>`;
+    }).join('');
 
     return `
       <div data-index="${id}">
@@ -54,4 +56,7 @@ export default function displayCard(data) {
             </div>
           </div>
         </article>
-      </div>`}).join("");}
+      </div>`;
+  }).join('');
+  searchCheck(data);
+}
