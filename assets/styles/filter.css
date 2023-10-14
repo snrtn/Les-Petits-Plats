@@ -167,10 +167,10 @@
   letter-spacing: 0rem;
   text-align: left;
 }
-.tagsItem div {
+.tagsItem img {
   font-family: Manrope;
-  width: 2.8rem;
-  height: 2.8rem;
+  width: 2.2rem;
+  height: 2.2rem;
   border-radius: 1.4rem;
   display: flex;
   font-size: 1.4rem;
@@ -179,10 +179,17 @@
   align-items: center;
   line-height: 0rem !important;
 }
+.tagsItem div {
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 1.4rem;
+}
 .tagsItem:hover p {
   font-weight: 600;
 }
+.tagsItem:hover img {
+  filter: invert(82%) sepia(14%) saturate(1634%) hue-rotate(354deg) brightness(104%) contrast(98%);
+}
 .tagsItem:hover div {
   background-color: #1b1b1b;
-  color: #ffd15b;
 }

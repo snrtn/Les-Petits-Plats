@@ -1,15 +1,15 @@
 'use strict';
 
-import searchCheck from '../filters/searchCheck.js';
-import { _map } from '../utils/_.js';
+import searchCheck from './searchCheck.js';
+import { _map } from './utils/_.js';
 
 const myCard = document.querySelector('.my__card'),
   myTotal = document.querySelector('.my__num'),
   myNotFind = document.querySelector('.my__notFind');
 
 export default function displayCard(data) {
-  const message = "Il n'y a pas des recettes correspondant";
-  data.recipes.length <= 0 ? (myNotFind.innerHTML = message) : (myNotFind.innerHTML = '');
+  const errMessage = "Il n'y a pas des recettes correspondant";
+  data.recipes.length <= 0 ? (myNotFind.innerHTML = errMessage) : (myNotFind.innerHTML = '');
 
   myTotal.innerHTML = `${data.recipes.length} recettes`;
 

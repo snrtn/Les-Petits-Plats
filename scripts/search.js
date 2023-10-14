@@ -1,8 +1,8 @@
 'use strict';
 
-import displayCard from '../pages/displayCard.js';
+import displayCard from './displayCard.js';
 import check from './searchCheck.js';
-import { _filter } from '../utils/_.js';
+import { _filter } from './utils/_.js';
 
 const field = document.querySelector('.fieldSearch'),
   message = document.querySelector('.err');
@@ -10,11 +10,11 @@ const field = document.querySelector('.fieldSearch'),
 export default function search(data) {
   field.addEventListener('keyup', event => {
     const target = event.target,
-      err = 'Veuillez entrer 3 caractères ou plus';
+      errMessage = 'Veuillez entrer 3 caractères ou plus';
 
     let result = '';
     target.value.length <= 2
-      ? ((result = ''), (message.innerText = err))
+      ? ((result = ''), (message.innerText = errMessage))
       : ((result = target.name === 'search' && target.value), (message.innerText = ''), start(data, result));
     target.value.length === 0 && ((message.innerText = ''), start(data, result));
   });

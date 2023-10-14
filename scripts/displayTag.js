@@ -1,6 +1,6 @@
 'use strict';
 
-import { _map, _filter } from '../utils/_.js';
+import { _map, _filter } from './utils/_.js';
 
 const filter = document.querySelector('.filterContainer');
 let resultIngredient = '',
@@ -98,20 +98,20 @@ export default function displayTag(
   function eventIng() {
     const ingredient = document.querySelector('.fieldIngredient'),
       errIngredient = document.querySelector('.errIngredient'),
-      err = 'Veuillez entrer 3 caractères ou plus',
-      resultIng = document.querySelector('#ing ul');
+      errMessage = 'Veuillez entrer 3 caractères ou plus',
+      documentIng = document.querySelector('#ing ul');
 
     ingredient.addEventListener('keyup', event => {
       const target = event.target;
       target.value.length <= 2
-        ? ((resultIngredient = ''), (errIngredient.innerText = err))
+        ? ((resultIngredient = ''), (errIngredient.innerText = errMessage))
         : ((resultIngredient = target.name === 'fieldIngredient' && target.value),
           (errIngredient.innerText = ''),
           (mapIngredient = _map(
             ingredientTag.filter(tag => tag.includes(resultIngredient)),
             text => `<li class="itemIngredient" onclick="handleIngredient(this)">${text}</li>`,
           ).join('')),
-          (resultIng.innerHTML = `<ul class="noCheck">
+          (documentIng.innerHTML = `<ul class="noCheck">
             <spen class="errIngredient err"></spen>
             ${mapIngredient}
           </ul>`));
@@ -121,7 +121,7 @@ export default function displayTag(
           _filter(ingredientTag, tag => !ingredientCheck.includes(tag)),
           text => `<li class="itemIngredient" onclick="handleIngredient(this)">${text}</li>`,
         ).join('')),
-        (resultIng.innerHTML = `<ul class="noCheck">
+        (documentIng.innerHTML = `<ul class="noCheck">
             <spen class="errIngredient err"></spen>
             ${mapIngredient}
           </ul>`));
@@ -130,20 +130,20 @@ export default function displayTag(
   function eventApp() {
     const appareil = document.querySelector('.fieldAppareil'),
       errAppareil = document.querySelector('.errAppareil'),
-      err = 'Veuillez entrer 3 caractères ou plus',
-      resultApp = document.querySelector('#app ul');
+      errMessage = 'Veuillez entrer 3 caractères ou plus',
+      documentApp = document.querySelector('#app ul');
 
     appareil.addEventListener('keyup', event => {
       const target = event.target;
       target.value.length <= 2
-        ? ((resultAppareil = ''), (errAppareil.innerText = err))
+        ? ((resultAppareil = ''), (errAppareil.innerText = errMessage))
         : ((resultAppareil = target.name === 'fieldAppareil' && target.value),
           (errAppareil.innerText = ''),
           (mapAppareil = _map(
             appareilTag.filter(tag => tag.includes(resultAppareil)),
             text => `<li class="itemAppareil" onclick="handleAppareil(this)">${text}</li>`,
           ).join('')),
-          (resultApp.innerHTML = `<ul class="noCheck">
+          (documentApp.innerHTML = `<ul class="noCheck">
             <spen class="errAppareil err"></spen>
             ${mapAppareil}
           </ul>`));
@@ -153,7 +153,7 @@ export default function displayTag(
           _filter(appareilTag, tag => !appareilCheck.includes(tag)),
           text => `<li class="itemAppareil" onclick="handleAppareil(this)">${text}</li>`,
         ).join('')),
-        (resultApp.innerHTML = `<ul class="noCheck">
+        (documentApp.innerHTML = `<ul class="noCheck">
             <spen class="errAppareil err"></spen>
             ${mapAppareil}
           </ul>`));
@@ -162,20 +162,20 @@ export default function displayTag(
   function eventUst() {
     const ustensil = document.querySelector('.fieldUstensile'),
       errUstensil = document.querySelector('.errUstensil'),
-      err = 'Veuillez entrer 3 caractères ou plus',
-      resultUst = document.querySelector('#ust ul');
+      errMessage = 'Veuillez entrer 3 caractères ou plus',
+      documentUst = document.querySelector('#ust ul');
 
     ustensil.addEventListener('keyup', event => {
       const target = event.target;
       target.value.length <= 2
-        ? ((resultUstensil = ''), (errUstensil.innerText = err))
+        ? ((resultUstensil = ''), (errUstensil.innerText = errMessage))
         : ((resultUstensil = target.name === 'fieldUstensile' && target.value),
           (errUstensil.innerText = ''),
           (mapUstensil = _map(
             ustensileTag.filter(tag => tag.includes(resultUstensil)),
             text => `<li class="itemUstensile" onclick="handleUstensile(this)">${text}</li>`,
           ).join('')),
-          (resultUst.innerHTML = `<ul class="noCheck">
+          (documentUst.innerHTML = `<ul class="noCheck">
             <spen class="errUstensil err"></spen>
             ${mapUstensil}
           </ul>`));
@@ -185,7 +185,7 @@ export default function displayTag(
           _filter(ustensileTag, tag => !appareilCheck.includes(tag)),
           text => `<li class="itemUstensile" onclick="handleUstensile(this)">${text}</li>`,
         ).join('')),
-        (resultUst.innerHTML = `<ul class="noCheck">
+        (documentUst.innerHTML = `<ul class="noCheck">
             <spen class="errUstensil err"></spen>
             ${mapUstensil}
           </ul>`));

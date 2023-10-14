@@ -25,19 +25,12 @@
 }
 
 .my__card {
-  display: flex;
   padding: 2rem 12rem 12rem 12rem;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  row-gap: 10rem;
-}
-
-.my__card div {
-  height: 100%;
-  flex-basis: 200;
+  display: grid;
+  grid-gap: 10rem;
+  grid-template-columns: repeat(auto-fill, minmax(32rem, 1fr));
 }
 .my__card div article:first-child {
-  width: 38rem;
   min-height: 73.1rem;
   max-height: 100vh;
   background: #ffffff;

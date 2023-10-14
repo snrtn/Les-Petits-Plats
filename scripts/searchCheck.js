@@ -1,9 +1,9 @@
 'use strict';
 
-import displayTag from '../pages/displayTag.js';
-import displayTagCheck from '../pages/displayTagCheck.js';
-import displayCard from '../pages/displayCard.js';
-import { _map, _filter } from '../utils/_.js';
+import displayTag from './displayTag.js';
+import displayTagCheck from './displayTagCheck.js';
+import displayCard from './displayCard.js';
+import { _map, _filter } from './utils/_.js';
 
 let ingredientCheck = [],
   appareilCheck = [],
