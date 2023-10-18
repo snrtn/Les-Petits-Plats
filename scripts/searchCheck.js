@@ -7,9 +7,9 @@ import { _map, _filter } from './utils/_.js';
 
 let ingredientCheck = [],
   appareilCheck = [],
-  ustensileCheck = [];
+  ustensilCheck = [];
 
-export default function searchCheck(data) {
+export default function searchCheck(data, setIng, setApp, setUst) {
   let ingredientGet = [],
     appareilGet = [],
     ustensilGet = [];
@@ -35,20 +35,22 @@ export default function searchCheck(data) {
     .reduce((unique, ustensil) => (unique.indexOf(ustensil) !== -1 ? unique : [...unique, ustensil]), []);
 
   function start() {
-    displayTag(ingredientTag, appareilTag, ustensilTag, ingredientCheck, appareilCheck, ustensileCheck);
-    displayTagCheck(ingredientCheck, appareilCheck, ustensileCheck);
+    displayTag(ingredientTag, appareilTag, ustensilTag, ingredientCheck, appareilCheck, ustensilCheck);
+    displayTagCheck(data, ingredientCheck, appareilCheck, ustensilCheck);
   }
+
+  setIng !== undefined && (ingredientCheck = _filter(ingredientCheck, tag => !setIng.includes(tag)));
+  setApp !== undefined && (appareilCheck = _filter(appareilCheck, tag => !setApp.includes(tag)));
+  setUst !== undefined && (ustensilCheck = _filter(ustensilCheck, tag => !setUst.includes(tag)));
 
   window.handleIngredient = event => {
     ingredientCheck.push(`${event.innerText}`);
     start();
     let resultIngredient = [],
       arrResult = [];
-    resultIngredient.push(event.innerText.toLowerCase());
+    resultIngredient.push(event.innerText);
     arrResult.push(
-      ..._filter(data.recipes, value =>
-        value.ingredients.some(el => el.ingredient.toLowerCase().includes(resultIngredient)),
-      ),
+      ..._filter(data.recipes, value => value.ingredients.some(el => el.ingredient.includes(resultIngredient))),
     );
     arrResult = { recipes: arrResult };
     displayCard(arrResult);
@@ -58,22 +60,21 @@ export default function searchCheck(data) {
     start();
     let resultAppareil = [],
       arrResult = [];
-    resultAppareil.push(event.innerText.toLowerCase());
-    arrResult.push(..._filter(data.recipes, value => value.appliance.toLowerCase().includes(resultAppareil)));
+    resultAppareil.push(event.innerText);
+    arrResult.push(..._filter(data.recipes, value => value.appliance.includes(resultAppareil)));
     arrResult = { recipes: arrResult };
     displayCard(arrResult);
   };
   window.handleUstensile = event => {
-    ustensileCheck.push(`${event.innerText}`);
+    ustensilCheck.push(`${event.innerText}`);
     start();
     let resultUstensil = [],
       arrResult = [];
-    resultUstensil.push(event.innerText.toLowerCase());
-    arrResult.push(
-      ..._filter(data.recipes, value => value.ustensils.some(el => el.toLowerCase().includes(resultUstensil))),
-    );
+    resultUstensil.push(event.innerText);
+    arrResult.push(..._filter(data.recipes, value => value.ustensils.some(el => el.includes(resultUstensil))));
     arrResult = { recipes: arrResult };
     displayCard(arrResult);
   };
-  start();
+
+  displayTag(ingredientTag, appareilTag, ustensilTag, ingredientCheck, appareilCheck, ustensilCheck);
 }

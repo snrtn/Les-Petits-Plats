@@ -10,7 +10,7 @@ let resultIngredient = '',
 export default function displayTag(
   ingredientTag,
   appareilTag,
-  ustensileTag,
+  ustensilTag,
   ingredientCheck,
   appareilCheck,
   ustensilCheck,
@@ -26,7 +26,7 @@ export default function displayTag(
     text => `<li class="itemAppareil" onclick="handleAppareil(this)">${text}</li>`,
   ).join('');
   let mapUstensil = _map(
-    _filter(ustensileTag, tag => !ustensilCheck.includes(tag)),
+    _filter(ustensilTag, tag => !ustensilCheck.includes(tag)),
     text => `<li class="itemUstensile" onclick="handleUstensile(this)">${text}</li>`,
   ).join('');
 
@@ -182,7 +182,7 @@ export default function displayTag(
       target.value.length === 0 &&
         ((errUstensil.innerText = ''),
         (mapUstensil = _map(
-          _filter(ustensileTag, tag => !appareilCheck.includes(tag)),
+          _filter(ustensilTag, tag => !appareilCheck.includes(tag)),
           text => `<li class="itemUstensile" onclick="handleUstensile(this)">${text}</li>`,
         ).join('')),
         (documentUst.innerHTML = `<ul class="noCheck">
