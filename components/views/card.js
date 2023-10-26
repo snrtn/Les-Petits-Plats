@@ -3,42 +3,42 @@
 import select from './select.js';
 
 export default function card(data) {
-	const wrapper = document.querySelector('.my__card');
-	const count = document.querySelector('.my__num');
-	const notFind = document.querySelector('.my__notFind');
+  const wrapper = document.querySelector('.my__card');
+  const count = document.querySelector('.my__num');
+  const notFind = document.querySelector('.my__notFind');
 
-	const errMessage = "Il n'y a pas des recettes correspondant";
-	// error: s'il y a pas des recettes correspondant ou ne sont pas
-	data.recipes.length <= 0 ? (notFind.innerHTML = errMessage) : (notFind.innerHTML = '');
+  const errMessage = "Il n'y a pas des recettes correspondant";
+  // error: s'il y a pas des recettes correspondant ou ne sont pas
+  data.recipes.length <= 0 ? (notFind.innerHTML = errMessage) : (notFind.innerHTML = '');
 
-	// count
-	count.innerHTML = `${data.recipes.length} recettes`;
+  // count
+  count.innerHTML = `${data.recipes.length} recettes`;
 
-	// card
-	wrapper.innerHTML = data.recipes
-		.map((item) => {
-			let { id, image, name, time, description, ingredients } = item;
+  // card
+  wrapper.innerHTML = data.recipes
+    .map(item => {
+      let { id, image, name, time, description, ingredients } = item;
 
-			// info ingredient
-			let info = ingredients
-				.map((item) => {
-					let { ingredient, quantity, unit } = item;
+      // info ingredient
+      let info = ingredients
+        .map(item => {
+          let { ingredient, quantity, unit } = item;
 
-					// check unité
-					quantity === undefined && (quantity = '');
-					unit === undefined && (unit = '');
+          // check unité
+          quantity === undefined && (quantity = '');
+          unit === undefined && (unit = '');
 
-					// view info
-					return `
+          // view info
+          return `
           <div class="ingredient__info">
             <h3>${ingredient}</h3>
             <p>${quantity}<span>${unit}</span></p>
           </div>`;
-				})
-				.join('');
+        })
+        .join('');
 
-			// view card
-			return `
+      // view card
+      return `
       <div data-index="${id}">
         <article>
           <div class="my__card-iamge">
@@ -66,9 +66,9 @@ export default function card(data) {
           </div>
         </article>
       </div>`;
-		})
-		.join('');
+    })
+    .join('');
 
-	// retrier select item
-	select(data);
+  // retrier select item
+  select(data);
 }
