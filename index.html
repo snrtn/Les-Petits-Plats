@@ -3,26 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="./components/assets/images/favicon.ico" type="image/x-icon" />
     <meta name="description" content="Cherchez parmi plus de 1500 recettes du quotidien,simples et délicieuses" />
     <meta
       name="keywords"
       content="Les Petits Plats, Cherchez parmi plus de 1500 recettes du quotidien, recettes du quotidien, simples et délicieuses"
     />
     <title>Les Petits Plats</title>
-    <link rel="stylesheet" href="./assets/styles/normalize.css" />
-    <link rel="stylesheet" href="./assets/styles/jumbotron.css" />
-    <link rel="stylesheet" href="./assets/styles/filter.css" />
-    <link rel="stylesheet" href="./assets/styles/card.css" />
+
+    <!-- styles -->
+    <link rel="stylesheet" href="./components/assets/styles/normalize.css" />
+    <link rel="stylesheet" href="./components/assets/styles/jumbotron.css" />
+    <link rel="stylesheet" href="./components/assets/styles/filter.css" />
+    <link rel="stylesheet" href="./components/assets/styles/card.css" />
   </head>
 
   <body>
+    <!-- jumbotron -->
     <section class="my__jumbotron">
       <div class="my__nav">
         <a href="/index.html" aria-label="Aller à la page d'accueil">
           <img
             aria-label="C'est logo de petits plats"
-            src="./assets/images/logo.svg"
+            src="./components/assets/images/logo.svg"
             alt="C'est logo de petits plats"
           />
         </a>
@@ -43,7 +46,7 @@
             />
             <button class="btnSearch" aria-label="C'est un bouton de recherche">
               <img
-                src="./assets/images/icon_search.svg"
+                src="./components/assets/images/icon_search.svg"
                 alt="C'est icon de recherche"
                 aria-label="C'est icon de recherche"
               />
@@ -53,12 +56,16 @@
         </article>
       </div>
     </section>
+
+    <!-- select -->
     <section class="filterMain">
       <div class="my__filter">
         <div class="filterContainer"></div>
       </div>
       <div class="my__num"></div>
     </section>
+
+    <!-- tag -->
     <section class="my__tags">
       <div class="tagsContainer">
         <ul class="tagsWrapper tagsIngredient"></ul>
@@ -67,9 +74,12 @@
       </div>
       <p class="my__notFind"></p>
     </section>
+
+    <!-- card -->
     <section class="my__card"></section>
 
-    <script type="module" src="./scripts/utils/app.js"></script>
-    <script src="./scripts/toggle.js"></script>
+    <!-- js -->
+    <script type="module" src="./components/utils/app.js"></script>
+    <script src="./components/utils/toggle.js"></script>
   </body>
 </html>
