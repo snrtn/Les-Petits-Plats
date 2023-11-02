@@ -13,7 +13,7 @@ export default function select(data, arrIng, arrApp, arrUst) {
   let getIng = [];
   let getApp = [];
   let getUst = [];
-  // trier select item
+  // get select item
   data.recipes.map(all => {
     let { ingredients, appliance, ustensils } = all;
     ingredients.map(item => {
@@ -35,8 +35,7 @@ export default function select(data, arrIng, arrApp, arrUst) {
     .sort()
     .reduce((unique, ustensil) => (unique.indexOf(ustensil) !== -1 ? unique : [...unique, ustensil]), []);
 
-  // view list
-  // aller à line 243: onclick event
+  // create selecte list / Template literals
   let mapIng = tagIng
     .filter(tag => !checkIng.includes(tag))
     .map(text => `<li class="itemIngredient" onclick="handleIng(this)">${text}</li>`)
@@ -50,32 +49,27 @@ export default function select(data, arrIng, arrApp, arrUst) {
     .map(text => `<li class="itemUstensile" onclick="handleUst(this)">${text}</li>`)
     .join('');
 
-  // retrier select item
+  // remove selected item
   arrIng !== undefined && (checkIng = checkIng.filter(tag => !arrIng.includes(tag)));
   arrApp !== undefined && (checkApp = checkApp.filter(tag => !arrApp.includes(tag)));
   arrUst !== undefined && (checkUst = checkUst.filter(tag => !arrUst.includes(tag)));
 
   const title = [{ name: 'Ingrédients' }, { name: 'Appareils' }, { name: 'Ustensiles' }];
-  // select
   function selectFx(title, mapIng, mapApp, mapUst) {
     return title
       .map(item => {
         const { name } = item;
 
-        // view select
-        // 01 aller à line 134: toggle dropdown
-        // 02 aller à line 162: recherche
+        // conditional rendering / Template literals
         if (name === 'Ingrédients') {
           return `
           <div id="ing">
-						<!-- 01 -->
             <button class="btnFilter" onclick="handleToggle(this)">
               <p>${name}</p>
               <img src="./components/assets/images/arrowDown.svg" alt="" />
             </button>
             <div class="item">
               <div>
-                <!-- 02 -->
                 <input type="search" class="fieldIngredient" name="fieldIng"/>
                 <img src="./components/assets/images/icon_search.svg" alt="" />
               </div>
@@ -158,7 +152,7 @@ export default function select(data, arrIng, arrApp, arrUst) {
   const docApp = document.querySelector('#app ul');
   const docUst = document.querySelector('#ust ul');
   const errMessage = 'Veuillez entrer 3 caractères ou plus';
-  // Ingredient input validation
+  // input validation
   function ingFx() {
     ing.addEventListener('keyup', event => {
       let resultIng = '';
@@ -239,7 +233,7 @@ export default function select(data, arrIng, arrApp, arrUst) {
   appFx();
   ustFx();
 
-  // Ingredient list onclick event
+  // list onclick event
   window.handleIng = event => {
     checkIng.push(`${event.innerText}`);
 
@@ -249,11 +243,11 @@ export default function select(data, arrIng, arrApp, arrUst) {
     let newData = [];
     newData.push(...data.recipes.filter(value => value.ingredients.some(el => el.ingredient.includes(resultIng))));
 
-    // retrier tag item
+    // donner check list
     tag(data, checkIng, checkApp, checkUst);
 
     newData = { recipes: newData };
-    // retrier card item
+    // reset card item
     card(newData);
   };
   window.handleApp = event => {

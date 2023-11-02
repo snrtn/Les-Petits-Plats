@@ -23,22 +23,22 @@ export default function search(data) {
 
 const start = (data, result) => {
   let newData = [];
-  newData.push(...data.recipes.filter(value => value.name.toLowerCase().includes(result)));
-  newData.push(...data.recipes.filter(value => value.description.toLowerCase().includes(result)));
   newData.push(
+    ...data.recipes.filter(value => value.name.toLowerCase().includes(result)),
+    ...data.recipes.filter(value => value.description.toLowerCase().includes(result)),
     ...data.recipes.filter(value => value.ingredients.some(el => el.ingredient.toLowerCase().includes(result))),
+    ...data.recipes.filter(value => value.appliance.toLowerCase().includes(result)),
+    ...data.recipes.filter(value => value.ustensils.some(el => el.toLowerCase().includes(result))),
   );
-  newData.push(...data.recipes.filter(value => value.appliance.toLowerCase().includes(result)));
-  newData.push(...data.recipes.filter(value => value.ustensils.some(el => el.toLowerCase().includes(result))));
 
   // delete duplication
   let trieItem = newData.filter(
     (character, idx, arr) => arr.findIndex(item => item.name === character.name && item.id === character.id) === idx,
   );
 
-  // trier ABC
+  // reset ABC
   newData = { recipes: trieItem.sort((a, b) => a.id - b.id) };
 
-  // retrier card item
+  // reset card item
   card(newData);
 };

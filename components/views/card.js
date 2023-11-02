@@ -8,7 +8,7 @@ export default function card(data) {
   const notFind = document.querySelector('.my__notFind');
 
   const errMessage = "Il n'y a pas des recettes correspondant";
-  // error: s'il y a pas des recettes correspondant ou ne sont pas
+  // error
   data.recipes.length <= 0 ? (notFind.innerHTML = errMessage) : (notFind.innerHTML = '');
 
   // count
@@ -28,7 +28,7 @@ export default function card(data) {
           quantity === undefined && (quantity = '');
           unit === undefined && (unit = '');
 
-          // view info
+          // info / Template literals
           return `
           <div class="ingredient__info">
             <h3>${ingredient}</h3>
@@ -37,7 +37,7 @@ export default function card(data) {
         })
         .join('');
 
-      // view card
+      // card / Template literals
       return `
       <div data-index="${id}">
         <article>
@@ -69,6 +69,6 @@ export default function card(data) {
     })
     .join('');
 
-  // retrier select item
+  // reset select list
   select(data);
 }
