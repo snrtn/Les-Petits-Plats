@@ -37,24 +37,28 @@ export default function tag(data, checkIng, checkApp, checkUst) {
   // Gestionnaires d'événements de clic sur les étiquettes
   window.handleIngTag = event => {
     arrIng.push(event.innerText);
+
     // Réinitialiser la liste de sélection
     select(data, arrIng, arrApp, arrUst);
+
+    checkIng = filter(checkIng, tag => !arrIng.includes(tag));
     // Réinitialiser la liste d'étiquettes
     tag(data, checkIng, checkApp, checkUst);
+
     // Supprimer l'élément sélectionné
     tagFx(checkIng, checkApp, checkUst);
   };
-
   window.handleAppTag = event => {
     arrApp.push(event.innerText);
     select(data, arrIng, arrApp, arrUst);
+    checkApp = filter(checkApp, tag => !arrApp.includes(tag));
     tag(data, checkIng, checkApp, checkUst);
     tagFx(checkIng, checkApp, checkUst);
   };
-
   window.handleUstTag = event => {
     arrUst.push(event.innerText);
     select(data, arrIng, arrApp, arrUst);
+    checkUst = filter(checkUst, tag => !arrUst.includes(tag));
     tag(data, checkIng, checkApp, checkUst);
     tagFx(checkIng, checkApp, checkUst);
   };
@@ -104,13 +108,9 @@ function tagFx(checkIng, checkApp, checkUst) {
         ),
       ]);
     });
-
-    // Filtrer les recettes en fonction des appareils sélectionnés
     checkApp.forEach(appareil => {
       uniqueRecipes = new Set([...uniqueRecipes, ...filter(origin.recipes, tag => tag.appliance.includes(appareil))]);
     });
-
-    // Filtrer les recettes en fonction des ustensiles sélectionnés
     checkUst.forEach(ustensil => {
       uniqueRecipes = new Set([
         ...uniqueRecipes,
