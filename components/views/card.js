@@ -1,36 +1,34 @@
 'use strict';
 
-import select from './select.js'; // Importation de la fonction de sélection depuis le fichier 'select.js'
-import { map } from '../utils/fx.js'; // Importation de la fonction 'map' depuis le fichier d'utilitaires 'fx.js'
+import select from './select.js';
 
-// Définition de la fonction 'card' qui génère et affiche les cartes de recettes en fonction des données passées en paramètre.
+import { map } from '../utils/fx.js';
+
 export default function card(data) {
-  // Sélection des éléments du DOM nécessaires
-  const wrapper = document.querySelector('.my__card'); // Conteneur principal pour les cartes
-  const count = document.querySelector('.my__num'); // Élément affichant le nombre total de recettes
-  const notFind = document.querySelector('.my__notFind'); // Élément affichant un message si aucune recette n'est trouvée
+  const wrapper = document.querySelector('.my__card');
+  const count = document.querySelector('.my__num');
+  const notFind = document.querySelector('.my__notFind');
 
-  const errMessage = "Il n'y a pas des recettes correspondant"; // Message d'erreur si aucune recette n'est trouvée
-
-  // Vérification et affichage du message d'erreur si aucune recette n'est trouvée
+  const errMessage = "Il n'y a pas des recettes correspondant";
+  // error
   data.recipes.length <= 0 ? (notFind.innerHTML = errMessage) : (notFind.innerHTML = '');
 
-  // Affichage du nombre total de recettes
+  // count
   count.innerHTML = `${data.recipes.length} recettes`;
 
-  // Génération des cartes de recettes à partir des données fournies
+  // card
   wrapper.innerHTML = map(data.recipes, item => {
     let { id, image, name, time, description, ingredients } = item;
 
-    // Génération des informations sur les ingrédients
+    // info ingredient
     let info = map(ingredients, item => {
       let { ingredient, quantity, unit } = item;
 
-      // Vérification de l'existence de la quantité et de l'unité, et assignation de chaînes vides si non définies
+      // check unité
       quantity === undefined && (quantity = '');
       unit === undefined && (unit = '');
 
-      // Template literals pour chaque information sur l'ingrédient
+      // Template literals
       return `
           <div class="ingredient__info">
             <h3>${ingredient}</h3>
@@ -38,7 +36,7 @@ export default function card(data) {
           </div>`;
     }).join('');
 
-    // Template literals pour chaque carte de recette
+    // Template literals
     return `
       <div data-index="${id}">
         <article>
@@ -69,6 +67,5 @@ export default function card(data) {
       </div>`;
   }).join('');
 
-  // Appel de la fonction de sélection pour mettre à jour les filtres
   select(data);
 }

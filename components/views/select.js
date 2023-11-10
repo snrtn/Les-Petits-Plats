@@ -5,22 +5,17 @@ import tag from './tag.js';
 
 import { map, filter } from '../utils/fx.js';
 
-// Tableaux pour stocker les étiquettes sélectionnées
 let checkIng = [];
 let checkApp = [];
 let checkUst = [];
 
-// Fonction pour gérer la sélection des filtres
 export default function select(data, arrIng, arrApp, arrUst) {
-  // Sélection du conteneur de filtres
   const wrapper = document.querySelector('.filterContainer');
 
-  // Tableaux pour stocker les ingrédients, appareils et ustensiles disponibles
   let getIng = [];
   let getApp = [];
   let getUst = [];
-
-  // Obtention des éléments de sélection à partir des données
+  // get select item
   map(data.recipes, all => {
     let { ingredients, appliance, ustensils } = all;
     map(ingredients, item => {
@@ -31,12 +26,12 @@ export default function select(data, arrIng, arrApp, arrUst) {
     getUst.push(...ustensils);
   });
 
-  // Suppression des duplications
+  // delete duplication
   const tagIng = [...new Set(getIng.sort())];
   const tagApp = [...new Set(getApp.sort())];
   const tagUst = [...new Set(getUst.sort())];
 
-  // Création de la liste de sélection
+  // create selecte list / Template literals
   let mapIng = map(
     filter(tagIng, tag => !checkIng.includes(tag)),
     text => `<li class="itemIngredient" onclick="handleIng(this)">${text}</li>`,
@@ -50,20 +45,17 @@ export default function select(data, arrIng, arrApp, arrUst) {
     text => `<li class="itemUstensile" onclick="handleUst(this)">${text}</li>`,
   ).join('');
 
-  // Suppression des éléments sélectionnés
+  // remove selected item
   arrIng !== undefined && (checkIng = checkIng.filter(tag => !arrIng.includes(tag)));
   arrApp !== undefined && (checkApp = checkApp.filter(tag => !arrApp.includes(tag)));
   arrUst !== undefined && (checkUst = checkUst.filter(tag => !arrUst.includes(tag)));
 
-  // Titres des sections de sélection
   const title = [{ name: 'Ingrédients' }, { name: 'Appareils' }, { name: 'Ustensiles' }];
-
-  // Fonction de rendu de la sélection
   function selectFx(title, mapIng, mapApp, mapUst) {
     return map(title, item => {
       const { name } = item;
 
-      // Rendu conditionnel en fonction du titre
+      // conditional rendering / Template literals
       if (name === 'Ingrédients') {
         return `
           <div id="ing">
@@ -124,18 +116,15 @@ export default function select(data, arrIng, arrApp, arrUst) {
       }
     }).join('');
   }
-
-  // Injection du HTML généré dans le conteneur de filtres
   wrapper.innerHTML = selectFx(title, mapIng, mapApp, mapUst);
 
-  // Fonction pour basculer l'affichage du menu déroulant
+  // toggle dropdown
   window.handleToggle = event => {
     const container = event.closest(':not(.btnFilter)');
     const btnFilter = event.closest('.btnFilter');
     const item = container.querySelector('.item');
     const img = container.querySelector('.btnFilter img');
 
-    // Toggle de l'affichage
     item.style.display === 'none'
       ? ((btnFilter.style.borderBottomLeftRadius = '0rem'),
         (btnFilter.style.borderBottomRightRadius = '0rem'),
@@ -147,7 +136,6 @@ export default function select(data, arrIng, arrApp, arrUst) {
         (img.style.transform = 'rotate(0deg)'));
   };
 
-  // Sélection des champs de recherche
   const ing = document.querySelector('.fieldIngredient');
   const app = document.querySelector('.fieldAppareil');
   const ust = document.querySelector('.fieldUstensile');
@@ -158,13 +146,12 @@ export default function select(data, arrIng, arrApp, arrUst) {
   const docApp = document.querySelector('#app ul');
   const docUst = document.querySelector('#ust ul');
   const errMessage = 'Veuillez entrer 3 caractères ou plus';
-
-  // Fonctions de validation des champs de recherche
+  // input validation
   function ingFx() {
     ing.addEventListener('keyup', event => {
       let resultIng = '';
 
-      // Validation du champ
+      // field validation
       event.target.value.length <= 2
         ? ((resultIng = ''), (errIng.innerText = errMessage))
         : ((resultIng = event.target.name === 'fieldIng' && event.target.value),
@@ -178,7 +165,7 @@ export default function select(data, arrIng, arrApp, arrUst) {
             ${mapIng}
           </ul>`));
 
-      // Réinitialisation du champ
+      // field reset
       event.target.value.length === 0 &&
         ((errIng.innerText = ''),
         (mapIng = map(tagIng, text => `<li class="itemIngredient" onclick="handleIng(this)">${text}</li>`).join('')),
@@ -236,31 +223,25 @@ export default function select(data, arrIng, arrApp, arrUst) {
 					</ul>`));
     });
   }
-  // Appel des fonctions de validation
   ingFx();
   appFx();
   ustFx();
 
-  // Gestion des événements au clic sur les éléments de la liste
+  // list onclick event
   window.handleIng = event => {
-    // Ajout de l'ingrédient sélectionné à la liste des filtres d'ingrédients
     checkIng.push(`${event.innerText}`);
 
-    // Création d'un tableau pour stocker l'ingrédient sélectionné
     let resultIng = [];
     resultIng.push(event.innerText);
 
-    // Création d'un tableau pour stocker les données filtrées basées sur l'ingrédient sélectionné
     let newData = [];
     newData.push(...filter(data.recipes, value => value.ingredients.some(el => el.ingredient.includes(resultIng))));
 
-    // Mise à jour de la liste des filtres
+    // donner check list
     tag(data, checkIng, checkApp, checkUst);
 
-    // Mise à jour des données à afficher
     newData = { recipes: newData };
-
-    // Réinitialisation de la liste de cartes avec les nouvelles données
+    // reset card item
     card(newData);
   };
   window.handleApp = event => {
