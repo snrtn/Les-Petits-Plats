@@ -1,17 +1,19 @@
-/* Manrope */
+/* Définition des polices de caractères Manrope avec différentes pondérations */
+/* Pondération 400 (Regular) */
 @font-face {
   font-family: Manrope;
   font-weight: 400;
   src: url('../fonts/Manrope-Regular.ttf');
 }
 
-/* Manrope */
+/* Pondération 700 (Bold) */
 @font-face {
   font-family: Manrope;
   font-weight: 700;
   src: url('../fonts/Manrope-Bold.ttf');
 }
 
+/* Style de la section de filtre principal */
 .filterMain {
   display: flex;
   flex-direction: row;
@@ -20,6 +22,7 @@
   padding: 2rem 12rem;
 }
 
+/* Style du nombre de recettes affichées */
 .my__num {
   font-family: Anton;
   font-size: 21px;
@@ -29,12 +32,12 @@
   color: #1b1b1b;
 }
 
+/* Style du conteneur de filtres */
 .my__filter {
   display: flex;
 }
-.filterContainer {
-  display: flex;
-}
+
+/* Style du bouton de filtre */
 .btnFilter {
   width: 19.5rem;
   height: 5.6rem;
@@ -49,20 +52,20 @@
   position: relative;
   border: 1px solid #fff;
 }
+
 .btnFilter p {
   font-family: Manrope;
   font-size: 1.6rem;
   color: #1b1b1b;
 }
-#ingredient {
-  display: none;
-}
-#appareil {
-  display: none;
-}
+
+/* Styles des filtres individuels */
+#ingredient,
+#appareil,
 #ustensile {
   display: none;
 }
+
 .item {
   width: 19.5rem;
   min-height: 0rem;
@@ -78,9 +81,12 @@
   z-index: 999;
   border-bottom: 0.6px solid rgba(211, 211, 211, 0.65);
 }
+
 .item div {
   position: relative;
 }
+
+/* Style du champ de recherche dans le filtre */
 .item div input {
   width: 16.3rem;
   height: 3.6rem;
@@ -93,15 +99,18 @@
   font-family: Manrope;
   font-weight: 400;
 }
+
 .item div input:focus {
   outline: 0.3rem solid #ffd15b;
 }
+
 .item div input[type='search']::-webkit-search-cancel-button {
   -webkit-appearance: none;
   height: 1.6rem;
   width: 1.6rem;
   margin-right: 2rem;
 }
+
 .item div img {
   filter: brightness(40%);
   width: 1.8rem;
@@ -109,6 +118,8 @@
   top: 1rem;
   right: 1rem;
 }
+
+/* Style de la liste des filtres non sélectionnés */
 .noCheck {
   width: 100%;
   box-sizing: border-box;
@@ -118,6 +129,7 @@
   overflow: scroll;
   padding: 0;
 }
+
 .noCheck li {
   font-size: 1.4rem;
   line-height: 1.9rem;
@@ -129,21 +141,28 @@
   margin-bottom: 0.3rem;
   cursor: pointer;
 }
+
 .noCheck li:hover {
   background-color: #ffd15b;
 }
 
+/* Style de la section des tags */
 .my__tags {
   padding: 0rem 12rem;
 }
+
 .tagsContainer {
   display: flex;
   flex-wrap: wrap;
 }
+
+/* Style des wrappers de tags */
 .tagsWrapper {
   display: flex;
   padding: 0;
 }
+
+/* Style des éléments de tags */
 .tagsItem {
   display: flex;
   justify-content: space-between;
@@ -159,6 +178,7 @@
   cursor: pointer;
 }
 
+/* Style du texte dans les éléments de tags */
 .tagsItem p {
   font-family: Manrope;
   font-size: 1.4rem;
@@ -167,6 +187,8 @@
   letter-spacing: 0rem;
   text-align: left;
 }
+
+/* Style de l'icône dans les éléments de tags */
 .tagsItem img {
   font-family: Manrope;
   width: 2.2rem;
@@ -179,17 +201,22 @@
   align-items: center;
   line-height: 0rem !important;
 }
+
 .tagsItem div {
   width: 2.2rem;
   height: 2.2rem;
   border-radius: 1.4rem;
 }
+
+/* Style au survol des éléments de tags */
 .tagsItem:hover p {
   font-weight: 600;
 }
+
 .tagsItem:hover img {
   filter: invert(82%) sepia(14%) saturate(1634%) hue-rotate(354deg) brightness(104%) contrast(98%);
 }
+
 .tagsItem:hover div {
   background-color: #1b1b1b;
 }

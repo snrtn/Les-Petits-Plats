@@ -1,3 +1,4 @@
+/* Définition des polices de caractères */
 /* Anton */
 @font-face {
   font-family: Anton;
@@ -10,7 +11,7 @@
   src: url('../fonts/Manrope-Regular.ttf');
 }
 
-/* jumbotron */
+/* Style de la section jumbotron */
 .my__jumbotron {
   height: 66.7rem;
   background-image: url('../images/jumbotron.png');
@@ -18,6 +19,8 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+/* Style de la navigation dans la section jumbotron */
 .my__nav img {
   width: 20.7rem;
   height: 2.5rem;
@@ -27,11 +30,15 @@
   top: 0;
   left: 0;
 }
+
+/* Style de la section de recherche */
 .my__recherche {
   display: flex;
   justify-content: center;
   height: inherit;
 }
+
+/* Style de la zone de recherche */
 .my__recherche article {
   display: flex;
   justify-content: center;
@@ -39,6 +46,8 @@
   flex-direction: column;
   margin-top: 5rem;
 }
+
+/* Style du titre dans la zone de recherche */
 .my__recherche article h1 {
   width: 89rem;
   height: 13.2rem;
@@ -49,6 +58,8 @@
   text-align: center;
   font-family: 'Anton', sans-serif;
 }
+
+/* Style du conteneur de champ de recherche et bouton */
 .my__recherche article div {
   position: relative;
   display: flex;
@@ -56,6 +67,8 @@
   margin-top: 1rem;
   height: 7.2rem;
 }
+
+/* Style du champ de recherche */
 .my__recherche article div input {
   width: 95.4rem;
   height: inherit;
@@ -68,9 +81,13 @@
   line-height: 2.1rem;
   font-family: 'Manrope', sans-serif;
 }
+
+/* Style du champ de recherche lorsqu'il est en focus */
 .my__recherche article div input:focus {
   outline: 0.3rem solid #ffd15b;
 }
+
+/* Style du bouton de recherche */
 .my__recherche article div button {
   position: absolute;
   width: 5.1rem;
@@ -84,24 +101,36 @@
   align-items: center;
   cursor: pointer;
 }
+
+/* Style du bouton de recherche au survol */
 .my__recherche article div button:hover {
   background-color: #ffd15b;
 }
+
+/* Animation lorsqu'on appuie sur le bouton de recherche */
 .my__recherche article div button:active {
   animation: press 0.2s linear;
 }
+
+/* Style de l'icône du bouton de recherche au survol */
 .my__recherche article div button:hover img {
   filter: brightness(0%);
 }
+
+/* Style de l'icône du bouton de recherche */
 .my__recherche article div button img {
   width: 2.7rem;
   height: 2.8rem;
 }
+
+/* Style du message d'erreur */
 .err {
   color: #e74c3c;
   font-size: 1.4rem;
   padding: 0rem 1.6rem;
 }
+
+/* Animation de pression sur le bouton */
 @keyframes press {
   0% {
     transform: scale(1);

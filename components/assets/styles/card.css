@@ -1,3 +1,5 @@
+/* Définition des polices de caractères Anton et Manrope avec différentes pondérations */
+
 /* Anton */
 @font-face {
   font-family: Anton;
@@ -10,26 +12,29 @@
   src: url('../fonts/Manrope-Regular.ttf');
 }
 
-/* Manrope__Medium */
+/* Manrope Medium */
 @font-face {
   font-family: Manrope;
   font-weight: 500;
   src: url('../fonts/Manrope-Medium.ttf');
 }
 
-/* Manrope__Bold */
+/* Manrope Bold */
 @font-face {
   font-family: Manrope;
   font-weight: 700;
   src: url('../fonts/Manrope-Bold.ttf');
 }
 
+/* Style de la section des cartes de recettes */
 .my__card {
   padding: 2rem 12rem 12rem 12rem;
   display: grid;
   grid-gap: 10rem;
   grid-template-columns: repeat(auto-fill, minmax(32rem, 1fr));
 }
+
+/* Style de la première carte d'une série */
 .my__card div article:first-child {
   min-height: 73.1rem;
   max-height: 100vh;
@@ -37,15 +42,19 @@
   border-radius: 2.1rem;
   overflow: hidden;
 }
+
+/* Style de la section image dans la carte */
 .my__card-iamge {
   padding: 0 !important;
   position: relative;
 }
+
 .my__card-iamge img {
   width: 100%;
   height: 25.3rem;
   object-fit: cover;
 }
+
 .my__card-iamge div {
   position: absolute;
   z-index: 100;
@@ -60,6 +69,7 @@
   top: 2.1rem;
   right: 2.1rem;
 }
+
 .my__card-iamge div p {
   font-size: 1.2rem;
   text-align: center;
@@ -68,10 +78,12 @@
   font-family: Manrope;
 }
 
+/* Style du wrapper de la carte */
 .my__card-wrapper {
   padding: 2.5rem !important;
 }
 
+/* Style des informations dans la carte */
 .my__card-infos {
   padding: 0 !important;
   display: flex;
@@ -79,6 +91,7 @@
   justify-content: left;
   align-items: flex-start;
 }
+
 .my__card-infos h1 {
   font-family: Anton;
   font-size: 1.8rem;
@@ -87,10 +100,12 @@
   margin-bottom: 2.5rem;
 }
 
+/* Style de la section recette dans la carte */
 .my__card-recette {
   padding: 0 !important;
   margin-bottom: 1.6rem;
 }
+
 .my__card-recette h2 {
   font-size: 1.2rem;
   font-weight: 700;
@@ -99,6 +114,7 @@
   letter-spacing: 9%;
   color: #7a7a7a;
 }
+
 .my__card-recette p {
   font-size: 1.4rem;
   font-family: Manrope;
@@ -114,13 +130,16 @@
   -webkit-box-orient: vertical;
 }
 
+/* Style de la section ingrédients dans la carte */
 .my__card-ingredient {
   padding: 0 !important;
 }
+
 .my__card-ingredient article:last-child {
   display: flex;
   flex-wrap: wrap;
 }
+
 .my__card-ingredient h2 {
   font-size: 1.2rem;
   font-weight: 700;
@@ -130,10 +149,12 @@
   color: #7a7a7a;
 }
 
+/* Style des informations sur les ingrédients */
 .ingredient__info {
   padding: 0 !important;
   width: 50%;
 }
+
 .ingredient__info h3 {
   font-size: 1.4rem;
   font-weight: 500;
@@ -142,6 +163,7 @@
   color: #1b1b1b;
   margin: 0;
 }
+
 .ingredient__info p {
   margin-top: 0;
   font-size: 1.4rem;
