@@ -3,6 +3,8 @@
 import card from './card.js';
 import tag from './tag.js';
 
+import { map, filter } from '../utils/fx.js';
+
 let checkIng = [];
 let checkApp = [];
 let checkUst = [];
@@ -14,9 +16,9 @@ export default function select(data, arrIng, arrApp, arrUst) {
   let getApp = [];
   let getUst = [];
   // get select item
-  data.recipes.map(all => {
+  map(data.recipes, all => {
     let { ingredients, appliance, ustensils } = all;
-    ingredients.map(item => {
+    map(ingredients, item => {
       let { ingredient } = item;
       getIng.push(ingredient);
     });
@@ -25,29 +27,23 @@ export default function select(data, arrIng, arrApp, arrUst) {
   });
 
   // delete duplication
-  let tagIng = getIng
-    .sort()
-    .reduce((unique, ingredient) => (unique.indexOf(ingredient) !== -1 ? unique : [...unique, ingredient]), []);
-  let tagApp = getApp
-    .sort()
-    .reduce((unique, appareil) => (unique.indexOf(appareil) !== -1 ? unique : [...unique, appareil]), []);
-  let tagUst = getUst
-    .sort()
-    .reduce((unique, ustensil) => (unique.indexOf(ustensil) !== -1 ? unique : [...unique, ustensil]), []);
+  const tagIng = [...new Set(getIng.sort())];
+  const tagApp = [...new Set(getApp.sort())];
+  const tagUst = [...new Set(getUst.sort())];
 
   // create selecte list / Template literals
-  let mapIng = tagIng
-    .filter(tag => !checkIng.includes(tag))
-    .map(text => `<li class="itemIngredient" onclick="handleIng(this)">${text}</li>`)
-    .join('');
-  let mapApp = tagApp
-    .filter(tag => !checkApp.includes(tag))
-    .map(text => `<li class="itemAppareil" onclick="handleApp(this)">${text}</li>`)
-    .join('');
-  let mapUst = tagUst
-    .filter(tag => !checkUst.includes(tag))
-    .map(text => `<li class="itemUstensile" onclick="handleUst(this)">${text}</li>`)
-    .join('');
+  let mapIng = map(
+    filter(tagIng, tag => !checkIng.includes(tag)),
+    text => `<li class="itemIngredient" onclick="handleIng(this)">${text}</li>`,
+  ).join('');
+  let mapApp = map(
+    filter(tagApp, tag => !checkApp.includes(tag)),
+    text => `<li class="itemAppareil" onclick="handleApp(this)">${text}</li>`,
+  ).join('');
+  let mapUst = map(
+    filter(tagUst, tag => !checkUst.includes(tag)),
+    text => `<li class="itemUstensile" onclick="handleUst(this)">${text}</li>`,
+  ).join('');
 
   // remove selected item
   arrIng !== undefined && (checkIng = checkIng.filter(tag => !arrIng.includes(tag)));
@@ -56,13 +52,12 @@ export default function select(data, arrIng, arrApp, arrUst) {
 
   const title = [{ name: 'Ingrédients' }, { name: 'Appareils' }, { name: 'Ustensiles' }];
   function selectFx(title, mapIng, mapApp, mapUst) {
-    return title
-      .map(item => {
-        const { name } = item;
+    return map(title, item => {
+      const { name } = item;
 
-        // conditional rendering / Template literals
-        if (name === 'Ingrédients') {
-          return `
+      // conditional rendering / Template literals
+      if (name === 'Ingrédients') {
+        return `
           <div id="ing">
             <button class="btnFilter" onclick="handleToggle(this)">
               <p>${name}</p>
@@ -80,8 +75,8 @@ export default function select(data, arrIng, arrApp, arrUst) {
             </div>
           </div>
         `;
-        } else if (name === 'Appareils') {
-          return `
+      } else if (name === 'Appareils') {
+        return `
           <div id="app">
             <button class="btnFilter" onclick="handleToggle(this)">
               <p>${name}</p>
@@ -99,8 +94,8 @@ export default function select(data, arrIng, arrApp, arrUst) {
           </div>
           </div>
         `;
-        } else {
-          return `
+      } else {
+        return `
           <div id="ust">
             <button class="btnFilter" onclick="handleToggle(this)">
                 <p>${name}</p>
@@ -118,9 +113,8 @@ export default function select(data, arrIng, arrApp, arrUst) {
             </div>
           </div>
         `;
-        }
-      })
-      .join('');
+      }
+    }).join('');
   }
   wrapper.innerHTML = selectFx(title, mapIng, mapApp, mapUst);
 
@@ -162,10 +156,10 @@ export default function select(data, arrIng, arrApp, arrUst) {
         ? ((resultIng = ''), (errIng.innerText = errMessage))
         : ((resultIng = event.target.name === 'fieldIng' && event.target.value),
           (errIng.innerText = ''),
-          (mapIng = tagIng
-            .filter(tag => tag.includes(resultIng))
-            .map(text => `<li class="itemIngredient" onclick="handleIng(this)">${text}</li>`)
-            .join('')),
+          (mapIng = map(
+            filter(tagIng, tag => tag.includes(resultIng)),
+            text => `<li class="itemIngredient" onclick="handleIng(this)">${text}</li>`,
+          ).join('')),
           (docIng.innerHTML = `<ul class="noCheck">
             <spen class="errIngredient err"></spen>
             ${mapIng}
@@ -174,7 +168,7 @@ export default function select(data, arrIng, arrApp, arrUst) {
       // field reset
       event.target.value.length === 0 &&
         ((errIng.innerText = ''),
-        (mapIng = tagIng.map(text => `<li class="itemIngredient" onclick="handleIng(this)">${text}</li>`).join('')),
+        (mapIng = map(tagIng, text => `<li class="itemIngredient" onclick="handleIng(this)">${text}</li>`).join('')),
         (docIng.innerHTML = `<ul class="noCheck">
           <spen class="errIngredient err"></spen>
           ${mapIng}
@@ -188,17 +182,17 @@ export default function select(data, arrIng, arrApp, arrUst) {
         ? ((resultApp = ''), (errApp.innerText = errMessage))
         : ((resultApp = event.target.name === 'fieldApp' && event.target.value),
           (errApp.innerText = ''),
-          (mapApp = tagApp
-            .filter(tag => tag.includes(resultApp))
-            .map(text => `<li class="itemAppareil" onclick="handleApp(this)">${text}</li>`)
-            .join('')),
+          (mapApp = map(
+            filter(tagApp, tag => tag.includes(resultApp)),
+            text => `<li class="itemAppareil" onclick="handleApp(this)">${text}</li>`,
+          ).join('')),
           (docApp.innerHTML = `<ul class="noCheck">
 						<spen class="errIngredient err"></spen>
 						${mapApp}
 						</ul>`));
       event.target.value.length === 0 &&
         ((errApp.innerText = ''),
-        (mapApp = tagApp.map(text => `<li class="itemAppareil" onclick="handleApp(this)">${text}</li>`).join('')),
+        (mapApp = map(tagApp, text => `<li class="itemAppareil" onclick="handleApp(this)">${text}</li>`).join('')),
         (docApp.innerHTML = `<ul class="noCheck">
 					<spen class="errIngredient err"></spen>
 					${mapApp}
@@ -212,17 +206,17 @@ export default function select(data, arrIng, arrApp, arrUst) {
         ? ((resultUst = ''), (errUst.innerText = errMessage))
         : ((resultUst = event.target.name === 'fieldUst' && event.target.value),
           (errUst.innerText = ''),
-          (mapUst = tagUst
-            .filter(tag => tag.includes(resultUst))
-            .map(text => `<li class="itemUstensile" onclick="handleUst(this)">${text}</li>`)
-            .join('')),
+          (mapUst = map(
+            filter(tagUst, tag => tag.includes(resultUst)),
+            text => `<li class="itemUstensile" onclick="handleUst(this)">${text}</li>`,
+          ).join('')),
           (docUst.innerHTML = `<ul class="noCheck">
 						<spen class="errIngredient err"></spen>
 						${mapUst}
 						</ul>`));
       event.target.value.length === 0 &&
         ((errUst.innerText = ''),
-        (mapUst = tagUst.map(text => `<li class="itemUstensile" onclick="handleUst(this)">${text}</li>`).join('')),
+        (mapUst = map(tagUst, text => `<li class="itemUstensile" onclick="handleUst(this)">${text}</li>`).join('')),
         (docUst.innerHTML = `<ul class="noCheck">
 					<spen class="errIngredient err"></spen>
 					${mapUst}
@@ -241,7 +235,7 @@ export default function select(data, arrIng, arrApp, arrUst) {
     resultIng.push(event.innerText);
 
     let newData = [];
-    newData.push(...data.recipes.filter(value => value.ingredients.some(el => el.ingredient.includes(resultIng))));
+    newData.push(...filter(data.recipes, value => value.ingredients.some(el => el.ingredient.includes(resultIng))));
 
     // donner check list
     tag(data, checkIng, checkApp, checkUst);
@@ -255,7 +249,7 @@ export default function select(data, arrIng, arrApp, arrUst) {
     let resultApp = [];
     let newData = [];
     resultApp.push(event.innerText);
-    newData.push(...data.recipes.filter(value => value.appliance.includes(resultApp)));
+    newData.push(...filter(data.recipes, value => value.appliance.includes(resultApp)));
     newData = { recipes: newData };
     tag(data, checkIng, checkApp, checkUst);
     card(newData);
@@ -265,7 +259,7 @@ export default function select(data, arrIng, arrApp, arrUst) {
     let resultUst = [];
     let newData = [];
     resultUst.push(event.innerText);
-    newData.push(...data.recipes.filter(value => value.ustensils.some(el => el.includes(resultUst))));
+    newData.push(...filter(data.recipes, value => value.ustensils.some(el => el.includes(resultUst))));
     newData = { recipes: newData };
     tag(data, checkIng, checkApp, checkUst);
     card(newData);

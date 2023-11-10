@@ -2,6 +2,8 @@
 
 import select from './select.js';
 
+import { map } from '../utils/fx.js';
+
 export default function card(data) {
   const wrapper = document.querySelector('.my__card');
   const count = document.querySelector('.my__num');
@@ -15,30 +17,27 @@ export default function card(data) {
   count.innerHTML = `${data.recipes.length} recettes`;
 
   // card
-  wrapper.innerHTML = data.recipes
-    .map(item => {
-      let { id, image, name, time, description, ingredients } = item;
+  wrapper.innerHTML = map(data.recipes, item => {
+    let { id, image, name, time, description, ingredients } = item;
 
-      // info ingredient
-      let info = ingredients
-        .map(item => {
-          let { ingredient, quantity, unit } = item;
+    // info ingredient
+    let info = map(ingredients, item => {
+      let { ingredient, quantity, unit } = item;
 
-          // check unité
-          quantity === undefined && (quantity = '');
-          unit === undefined && (unit = '');
+      // check unité
+      quantity === undefined && (quantity = '');
+      unit === undefined && (unit = '');
 
-          // info / Template literals
-          return `
+      // Template literals
+      return `
           <div class="ingredient__info">
             <h3>${ingredient}</h3>
             <p>${quantity}<span>${unit}</span></p>
           </div>`;
-        })
-        .join('');
+    }).join('');
 
-      // card / Template literals
-      return `
+    // Template literals
+    return `
       <div data-index="${id}">
         <article>
           <div class="my__card-iamge">
@@ -66,9 +65,7 @@ export default function card(data) {
           </div>
         </article>
       </div>`;
-    })
-    .join('');
+  }).join('');
 
-  // reset select list
   select(data);
 }
