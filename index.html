@@ -1,19 +1,17 @@
 <!doctype html>
 <html lang="fr">
   <head>
-    <!-- Les balises meta définissent les métadonnées de la page, comme l'encodage, la vue par défaut, l'icône, la description et les mots-clés -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="./components/assets/images/favicon.ico" type="image/x-icon" />
-    <meta name="description" content="Cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses" />
+    <link rel="icon" href="./components/assets/images/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="Cherchez parmi plus de 1500 recettes du quotidien,simples et délicieuses" />
     <meta
       name="keywords"
       content="Les Petits Plats, Cherchez parmi plus de 1500 recettes du quotidien, recettes du quotidien, simples et délicieuses"
     />
-    <!-- Le titre de la page -->
     <title>Les Petits Plats</title>
 
-    <!-- Les liens vers les fichiers de style -->
+    <!-- styles -->
     <link rel="stylesheet" href="./components/assets/styles/normalize.css" />
     <link rel="stylesheet" href="./components/assets/styles/jumbotron.css" />
     <link rel="stylesheet" href="./components/assets/styles/filter.css" />
@@ -21,7 +19,7 @@
   </head>
 
   <body>
-    <!-- La section jumbotron contient la navigation et le champ de recherche principal -->
+    <!-- jumbotron -->
     <section class="my__jumbotron">
       <div class="my__nav">
         <a href="/index.html" aria-label="Aller à la page d'accueil">
@@ -34,11 +32,10 @@
       </div>
       <div class="my__recherche">
         <article>
-          <h1 aria-label="Cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses">
-            CHERCHEZ PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN, SIMPLES ET DÉLICIEUSES
+          <h1 aria-label="Cherchez parmi plus de 1500 recettes du quotidien,simples et délicieuses">
+            CHERCHEZ PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN,SIMPLES ET DÉLICIEUSES
           </h1>
           <div>
-            <!-- Le champ de recherche et le bouton de recherche -->
             <input
               id="fieldKeypress"
               class="fieldSearch"
@@ -55,37 +52,33 @@
               />
             </button>
           </div>
-          <!-- Affichage des messages d'erreur -->
           <p class="err"></p>
         </article>
       </div>
     </section>
 
-    <!-- La section select contient les filtres pour sélectionner les recettes -->
+    <!-- select -->
     <section class="filterMain">
       <div class="my__filter">
         <div class="filterContainer"></div>
       </div>
-      <!-- Affichage du nombre de recettes -->
       <div class="my__num"></div>
     </section>
 
-    <!-- La section tags affiche les étiquettes sélectionnées -->
+    <!-- tag -->
     <section class="my__tags">
       <div class="tagsContainer">
         <ul class="tagsWrapper tagsIngredient"></ul>
         <ul class="tagsWrapper tagsAppareil"></ul>
         <ul class="tagsWrapper tagsUstensile"></ul>
       </div>
-      <!-- Affichage d'un message si aucune recette n'est trouvée -->
       <p class="my__notFind"></p>
     </section>
 
-    <!-- La section card affiche les cartes de recettes -->
+    <!-- card -->
     <section class="my__card"></section>
 
-    <!-- Le script JavaScript qui charge l'application -->
+    <!-- js -->
     <script type="module" src="./components/utils/app.js"></script>
   </body>
 </html>
-ㄴ

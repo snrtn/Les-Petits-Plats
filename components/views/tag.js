@@ -65,24 +65,18 @@ function tagFx(checkIng, checkApp, checkUst) {
   const isCheck = JSON.parse(localStorage.getItem('ISCHECK_KEY'));
   const search = JSON.parse(localStorage.getItem('SEARCH_KEY'));
 
-  console.log(checkIng);
-
-  if (isCheck === true && search.length !== 0) {
-    // Remove search from checkIng if checkIng is empty
-    if (checkIng.length === 0 || checkApp.length === 0 || checkUst.length === 0) {
-      checkIng = filter(checkIng, ingredient => ingredient !== search);
-    }
-
-    // Add search to checkIng if not already present
-    if (!checkIng.includes(search)) {
-      checkIng.push(search);
-    }
-
-    console.log(checkIng);
+  // Add this part before updating the tags
+  if (search.length !== 0 && !checkIng.includes(search)) {
+    checkIng.push(search);
   }
 
-  if (isCheck === true && search.length !== 0 && !checkIng.includes(search)) {
-    checkIng.push(search);
+  if (isCheck === true && checkIng.length !== 1) {
+    for (let i = 0; i < checkIng.length; i++) {
+      if (checkIng[i] === search) {
+        checkIng.splice(i, 1);
+        break; // Stop the loop once the value is removed
+      }
+    }
   }
 
   let newData = [];
