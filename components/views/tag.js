@@ -7,7 +7,7 @@ export default function tag(data, checkIng, checkApp, checkUst) {
   const tagsIng = document.querySelector('.tagsIngredient');
   const tagsApp = document.querySelector('.tagsAppareil');
   const tagsUst = document.querySelector('.tagsUstensile');
-  // create tag item / Template literals
+
   tagsIng.innerHTML = checkIng
     .map(
       index =>
@@ -30,17 +30,12 @@ export default function tag(data, checkIng, checkApp, checkUst) {
   let arrIng = [];
   let arrApp = [];
   let arrUst = [];
-  // tag onclick envent
+
   window.handleIngTag = event => {
     arrIng.push(event.innerText);
-    // reset select list
     select(data, arrIng, arrApp, arrUst);
-
     checkIng = checkIng.filter(tag => !arrIng.includes(tag));
-    // reset tag list
     tag(data, checkIng, checkApp, checkUst);
-
-    // remove selected item
     tagFx(checkIng, checkApp, checkUst);
   };
   window.handleAppTag = event => {
@@ -60,7 +55,6 @@ export default function tag(data, checkIng, checkApp, checkUst) {
 }
 
 function tagFx(checkIng, checkApp, checkUst) {
-  // get data: {recipes: Array(50)}
   const origin = JSON.parse(localStorage.getItem('DATA_KEY'));
 
   let newData = [];
@@ -87,6 +81,5 @@ function tagFx(checkIng, checkApp, checkUst) {
     ));
 
   newData = { recipes: newData };
-  // reset card item
   card(newData);
 }

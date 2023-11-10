@@ -12,9 +12,6 @@ const app = async () => {
   search(data);
 
   card(data);
-  select(data);
-  tag(data);
-
   localStorage.setItem('DATA_KEY', JSON.stringify(data));
 };
 

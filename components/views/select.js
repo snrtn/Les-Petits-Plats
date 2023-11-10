@@ -13,7 +13,7 @@ export default function select(data, arrIng, arrApp, arrUst) {
   let getIng = [];
   let getApp = [];
   let getUst = [];
-  // get select item
+
   data.recipes.map(all => {
     let { ingredients, appliance, ustensils } = all;
     ingredients.map(item => {
@@ -24,7 +24,6 @@ export default function select(data, arrIng, arrApp, arrUst) {
     getUst.push(...ustensils);
   });
 
-  // delete duplication
   let tagIng = getIng
     .sort()
     .reduce((unique, ingredient) => (unique.indexOf(ingredient) !== -1 ? unique : [...unique, ingredient]), []);
@@ -35,7 +34,6 @@ export default function select(data, arrIng, arrApp, arrUst) {
     .sort()
     .reduce((unique, ustensil) => (unique.indexOf(ustensil) !== -1 ? unique : [...unique, ustensil]), []);
 
-  // create selecte list / Template literals
   let mapIng = tagIng
     .filter(tag => !checkIng.includes(tag))
     .map(text => `<li class="itemIngredient" onclick="handleIng(this)">${text}</li>`)
@@ -49,7 +47,6 @@ export default function select(data, arrIng, arrApp, arrUst) {
     .map(text => `<li class="itemUstensile" onclick="handleUst(this)">${text}</li>`)
     .join('');
 
-  // remove selected item
   arrIng !== undefined && (checkIng = checkIng.filter(tag => !arrIng.includes(tag)));
   arrApp !== undefined && (checkApp = checkApp.filter(tag => !arrApp.includes(tag)));
   arrUst !== undefined && (checkUst = checkUst.filter(tag => !arrUst.includes(tag)));
@@ -60,7 +57,6 @@ export default function select(data, arrIng, arrApp, arrUst) {
       .map(item => {
         const { name } = item;
 
-        // conditional rendering / Template literals
         if (name === 'Ingrédients') {
           return `
           <div id="ing">
@@ -124,7 +120,6 @@ export default function select(data, arrIng, arrApp, arrUst) {
   }
   wrapper.innerHTML = selectFx(title, mapIng, mapApp, mapUst);
 
-  // toggle dropdown
   window.handleToggle = event => {
     const container = event.closest(':not(.btnFilter)');
     const btnFilter = event.closest('.btnFilter');
@@ -152,12 +147,11 @@ export default function select(data, arrIng, arrApp, arrUst) {
   const docApp = document.querySelector('#app ul');
   const docUst = document.querySelector('#ust ul');
   const errMessage = 'Veuillez entrer 3 caractères ou plus';
-  // input validation
+
   function ingFx() {
     ing.addEventListener('keyup', event => {
       let resultIng = '';
 
-      // field validation
       event.target.value.length <= 2
         ? ((resultIng = ''), (errIng.innerText = errMessage))
         : ((resultIng = event.target.name === 'fieldIng' && event.target.value),
@@ -171,7 +165,6 @@ export default function select(data, arrIng, arrApp, arrUst) {
             ${mapIng}
           </ul>`));
 
-      // field reset
       event.target.value.length === 0 &&
         ((errIng.innerText = ''),
         (mapIng = tagIng.map(text => `<li class="itemIngredient" onclick="handleIng(this)">${text}</li>`).join('')),
@@ -233,7 +226,6 @@ export default function select(data, arrIng, arrApp, arrUst) {
   appFx();
   ustFx();
 
-  // list onclick event
   window.handleIng = event => {
     checkIng.push(`${event.innerText}`);
 
@@ -242,12 +234,9 @@ export default function select(data, arrIng, arrApp, arrUst) {
 
     let newData = [];
     newData.push(...data.recipes.filter(value => value.ingredients.some(el => el.ingredient.includes(resultIng))));
-
-    // donner check list
     tag(data, checkIng, checkApp, checkUst);
 
     newData = { recipes: newData };
-    // reset card item
     card(newData);
   };
   window.handleApp = event => {
