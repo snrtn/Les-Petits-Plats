@@ -65,67 +65,117 @@ function tagFx(checkIng, checkApp, checkUst) {
   const isCheck = JSON.parse(localStorage.getItem('ISCHECK_KEY'));
   const search = JSON.parse(localStorage.getItem('SEARCH_KEY'));
 
-  // Add this part before updating the tags
   if (search.length !== 0 && !checkIng.includes(search)) {
     checkIng.push(search);
   }
 
-  if (isCheck === true && checkIng.length !== 1) {
-    for (let i = 0; i < checkIng.length; i++) {
-      if (checkIng[i] === search) {
-        checkIng.splice(i, 1);
-        break; // Stop the loop once the value is removed
-      }
-    }
+  if (checkIng.length === 1 && checkIng.includes(search)) {
+    const searchIndex = checkIng.indexOf(search);
+    checkIng.splice(searchIndex, 1);
   }
 
   let newData = [];
+  let newSearchData = [];
+  let uniqueRecipes = new Set();
 
-  if (checkIng.length || checkApp.length || checkUst.length) {
-    let uniqueRecipes = new Set();
-
-    checkIng.forEach(ingredient => {
-      uniqueRecipes = new Set([
-        ...uniqueRecipes,
-        ...filter(origin.recipes, tag =>
-          tag.ingredients.some(recipeIngredient =>
-            recipeIngredient.ingredient.toLowerCase().includes(ingredient.toLowerCase()),
+  if (isCheck === true) {
+    if (checkIng.length || checkApp.length || checkUst.length) {
+      checkIng.forEach(ingredient => {
+        uniqueRecipes = new Set([
+          ...uniqueRecipes,
+          ...filter(searchData.recipes, tag =>
+            tag.ingredients.some(recipeIngredient => recipeIngredient.ingredient.includes(ingredient)),
           ),
-        ),
-      ]);
-    });
+        ]);
+      });
 
-    checkApp.forEach(appareil => {
-      uniqueRecipes = new Set([...uniqueRecipes, ...filter(origin.recipes, tag => tag.appliance.includes(appareil))]);
-    });
+      checkApp.forEach(appareil => {
+        uniqueRecipes = new Set([
+          ...uniqueRecipes,
+          ...filter(searchData.recipes, tag => tag.appliance.includes(appareil)),
+        ]);
+      });
 
-    checkUst.forEach(ustensil => {
-      uniqueRecipes = new Set([
-        ...uniqueRecipes,
-        ...filter(origin.recipes, tag => tag.ustensils.some(recipeUstensil => recipeUstensil.includes(ustensil))),
-      ]);
-    });
+      checkUst.forEach(ustensil => {
+        uniqueRecipes = new Set([
+          ...uniqueRecipes,
+          ...filter(searchData.recipes, tag => tag.ustensils.some(recipeUstensil => recipeUstensil.includes(ustensil))),
+        ]);
+      });
 
-    newData = filter(Array.from(uniqueRecipes), Boolean);
+      newSearchData = filter(Array.from(uniqueRecipes), Boolean);
+      console.log('🚀 ~ file: tag.js:107 ~ tagFx ~ newSearchData:', newSearchData);
 
-    newData = filter(
-      newData,
-      recipe =>
-        checkIng.every(ing =>
-          recipe.ingredients.some(recipeIng => recipeIng.ingredient.toLowerCase().includes(ing.toLowerCase())),
-        ) &&
-        checkApp.every(app => recipe.appliance.includes(app)) &&
-        checkUst.every(ust => recipe.ustensils.some(recipeUst => recipeUst.includes(ust))),
-    );
-  } else {
-    if (isCheck) {
-      card(searchData);
-    } else {
-      card(origin);
+      newSearchData = filter(
+        newSearchData,
+        recipe =>
+          checkIng.every(ing => recipe.ingredients.some(recipeIng => recipeIng.ingredient.includes(ing))) &&
+          checkApp.every(app => recipe.appliance.includes(app)) &&
+          checkUst.every(ust => recipe.ustensils.some(recipeUst => recipeUst.includes(ust))),
+      );
+
+      newSearchData = { recipes: newSearchData };
+      console.log('🚀 ~ file: tag.js:117 ~ tagFx ~ newSearchData:', newSearchData);
     }
-    return;
   }
 
-  newData = { recipes: newData };
-  card(newData);
+  if (isCheck === false) {
+    if (checkIng.length || checkApp.length || checkUst.length) {
+      checkIng.forEach(ingredient => {
+        uniqueRecipes = new Set([
+          ...uniqueRecipes,
+          ...filter(origin.recipes, tag =>
+            tag.ingredients.some(recipeIngredient => recipeIngredient.ingredient.includes(ingredient)),
+          ),
+        ]);
+      });
+
+      checkApp.forEach(appareil => {
+        uniqueRecipes = new Set([...uniqueRecipes, ...filter(origin.recipes, tag => tag.appliance.includes(appareil))]);
+      });
+
+      checkUst.forEach(ustensil => {
+        uniqueRecipes = new Set([
+          ...uniqueRecipes,
+          ...filter(origin.recipes, tag => tag.ustensils.some(recipeUstensil => recipeUstensil.includes(ustensil))),
+        ]);
+      });
+
+      newData = filter(Array.from(uniqueRecipes), Boolean);
+
+      newData = filter(
+        newData,
+        recipe =>
+          checkIng.every(ing => recipe.ingredients.some(recipeIng => recipeIng.ingredient.includes(ing))) &&
+          checkApp.every(app => recipe.appliance.includes(app)) &&
+          checkUst.every(ust => recipe.ustensils.some(recipeUst => recipeUst.includes(ust))),
+      );
+
+      newData = { recipes: newData };
+    }
+  }
+
+  if (
+    isCheck === true &&
+    search.length > 0 &&
+    checkIng.length === 0 &&
+    checkApp.length === 0 &&
+    checkUst.length === 0
+  ) {
+    card(searchData);
+  } else if (
+    isCheck === false &&
+    search.length === 0 &&
+    checkIng.length === 0 &&
+    checkApp.length === 0 &&
+    checkUst.length === 0
+  ) {
+    card(origin);
+  } else {
+    if (isCheck === true) {
+      card(newSearchData);
+    } else {
+      card(newData);
+    }
+  }
 }

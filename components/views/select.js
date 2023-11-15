@@ -46,9 +46,9 @@ export default function select(data, arrIng, arrApp, arrUst) {
   ).join('');
 
   // remove selected item
-  arrIng !== undefined && (checkIng = checkIng.filter(tag => !arrIng.includes(tag)));
-  arrApp !== undefined && (checkApp = checkApp.filter(tag => !arrApp.includes(tag)));
-  arrUst !== undefined && (checkUst = checkUst.filter(tag => !arrUst.includes(tag)));
+  arrIng !== undefined && (checkIng = filter(checkIng, tag => !arrIng.includes(tag)));
+  arrApp !== undefined && (checkApp = filter(checkApp, tag => !arrApp.includes(tag)));
+  arrUst !== undefined && (checkUst = filter(checkUst, tag => !arrUst.includes(tag)));
 
   const title = [{ name: 'Ingrédients' }, { name: 'Appareils' }, { name: 'Ustensiles' }];
   function selectFx(title, mapIng, mapApp, mapUst) {
