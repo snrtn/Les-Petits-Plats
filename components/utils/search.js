@@ -40,10 +40,22 @@ const start = (data, result, isCheck) => {
     ...filter(data.recipes, value => value.ustensils.some(el => el.toLowerCase().includes(result))),
   );
 
-  // Suppression des éléments en double en utilisant la fonction Set et tri du tableau
-  let duplicate = Array.from(new Set(map(newData, a => a.id))).map(id => {
-    return newData.find(a => a.id === id);
-  });
+  // crée un tableau vide pour stocker les éléments en double.
+  const duplicate = [];
+  // crée un ensemble (Set) pour suivre les identifiants déjà rencontrés.
+  const idSet = new Set();
+
+  // parcourt chaque élément dans le tableau newData.
+  for (const item of newData) {
+    // Si l'identifiant de l'élément n'est pas déjà présent dans l'ensemble.
+    if (!idSet.has(item.id)) {
+      // On ajoute l'identifiant à l'ensemble.
+      idSet.add(item.id);
+
+      // On ajoute l'élément au tableau duplicate, car il n'est pas en double.
+      duplicate.push(item);
+    }
+  }
 
   newData = { recipes: duplicate.sort((a, b) => a.id - b.id) }; // Stockage des nouvelles données dans newData
 
