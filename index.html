@@ -1,17 +1,18 @@
 <!doctype html>
 <html lang="fr">
   <head>
+    <!-- Configuration de la page -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="./components/assets/images/favicon.ico" type="image/x-icon" />
-    <meta name="description" content="Cherchez parmi plus de 1500 recettes du quotidien,simples et délicieuses" />
+    <meta name="description" content="Cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses" />
     <meta
       name="keywords"
       content="Les Petits Plats, Cherchez parmi plus de 1500 recettes du quotidien, recettes du quotidien, simples et délicieuses"
     />
     <title>Les Petits Plats</title>
 
-    <!-- styles -->
+    <!-- Liens vers les feuilles de style -->
     <link rel="stylesheet" href="./components/assets/styles/normalize.css" />
     <link rel="stylesheet" href="./components/assets/styles/jumbotron.css" />
     <link rel="stylesheet" href="./components/assets/styles/filter.css" />
@@ -19,23 +20,26 @@
   </head>
 
   <body>
-    <!-- jumbotron -->
+    <!-- Section Jumbotron -->
     <section class="my__jumbotron">
+      <!-- Barre de navigation -->
       <div class="my__nav">
         <a href="/index.html" aria-label="Aller à la page d'accueil">
           <img
-            aria-label="C'est logo de petits plats"
+            aria-label="C'est le logo de Petits Plats"
             src="./components/assets/images/logo.svg"
-            alt="C'est logo de petits plats"
+            alt="C'est le logo de Petits Plats"
           />
         </a>
       </div>
+      <!-- Zone de recherche -->
       <div class="my__recherche">
         <article>
-          <h1 aria-label="Cherchez parmi plus de 1500 recettes du quotidien,simples et délicieuses">
-            CHERCHEZ PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN,SIMPLES ET DÉLICIEUSES
+          <h1 aria-label="Cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses">
+            CHERCHEZ PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN, SIMPLES ET DÉLICIEUSES
           </h1>
           <div>
+            <!-- Champ de recherche et bouton -->
             <input
               id="fieldKeypress"
               class="fieldSearch"
@@ -47,38 +51,43 @@
             <button class="btnSearch" aria-label="C'est un bouton de recherche">
               <img
                 src="./components/assets/images/icon_search.svg"
-                alt="C'est icon de recherche"
-                aria-label="C'est icon de recherche"
+                alt="C'est l'icône de recherche"
+                aria-label="C'est l'icône de recherche"
               />
             </button>
           </div>
+          <!-- Message d'erreur -->
           <p class="err"></p>
         </article>
       </div>
     </section>
 
-    <!-- select -->
+    <!-- Section principale de filtre -->
     <section class="filterMain">
+      <!-- Filtre -->
       <div class="my__filter">
         <div class="filterContainer"></div>
       </div>
+      <!-- Nombre de résultats -->
       <div class="my__num"></div>
     </section>
 
-    <!-- tag -->
+    <!-- Section des tags sélectionnés -->
     <section class="my__tags">
       <div class="tagsContainer">
+        <!-- Listes pour chaque type de tag -->
         <ul class="tagsWrapper tagsIngredient"></ul>
         <ul class="tagsWrapper tagsAppareil"></ul>
         <ul class="tagsWrapper tagsUstensile"></ul>
       </div>
+      <!-- Message en cas de non-trouvaille -->
       <p class="my__notFind"></p>
     </section>
 
-    <!-- card -->
+    <!-- Section des cartes de recettes -->
     <section class="my__card"></section>
 
-    <!-- js -->
+    <!-- Lien vers le module JavaScript -->
     <script type="module" src="./components/utils/app.js"></script>
   </body>
 </html>

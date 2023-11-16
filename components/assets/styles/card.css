@@ -1,32 +1,25 @@
-/* Définition des polices de caractères Anton et Manrope avec différentes pondérations */
-
-/* Anton */
 @font-face {
   font-family: Anton;
   src: url('../fonts/Anton-Regular.ttf');
 }
 
-/* Manrope */
 @font-face {
   font-family: Manrope;
   src: url('../fonts/Manrope-Regular.ttf');
 }
 
-/* Manrope Medium */
 @font-face {
   font-family: Manrope;
   font-weight: 500;
   src: url('../fonts/Manrope-Medium.ttf');
 }
 
-/* Manrope Bold */
 @font-face {
   font-family: Manrope;
   font-weight: 700;
   src: url('../fonts/Manrope-Bold.ttf');
 }
 
-/* Style de la section des cartes de recettes */
 .my__card {
   padding: 2rem 12rem 12rem 12rem;
   display: grid;
@@ -34,7 +27,6 @@
   grid-template-columns: repeat(auto-fill, minmax(32rem, 1fr));
 }
 
-/* Style de la première carte d'une série */
 .my__card div article:first-child {
   min-height: 73.1rem;
   max-height: 100vh;
@@ -43,7 +35,6 @@
   overflow: hidden;
 }
 
-/* Style de la section image dans la carte */
 .my__card-iamge {
   padding: 0 !important;
   position: relative;
@@ -78,12 +69,10 @@
   font-family: Manrope;
 }
 
-/* Style du wrapper de la carte */
 .my__card-wrapper {
   padding: 2.5rem !important;
 }
 
-/* Style des informations dans la carte */
 .my__card-infos {
   padding: 0 !important;
   display: flex;
@@ -100,7 +89,6 @@
   margin-bottom: 2.5rem;
 }
 
-/* Style de la section recette dans la carte */
 .my__card-recette {
   padding: 0 !important;
   margin-bottom: 1.6rem;
@@ -130,7 +118,6 @@
   -webkit-box-orient: vertical;
 }
 
-/* Style de la section ingrédients dans la carte */
 .my__card-ingredient {
   padding: 0 !important;
 }
@@ -149,7 +136,6 @@
   color: #7a7a7a;
 }
 
-/* Style des informations sur les ingrédients */
 .ingredient__info {
   padding: 0 !important;
   width: 50%;

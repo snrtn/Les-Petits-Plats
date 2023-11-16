@@ -1,34 +1,38 @@
 'use strict';
 
 import select from './select.js';
-
 import { map } from '../utils/fx.js';
 
+// Fonction card pour générer la mise en page des cartes de recettes
 export default function card(data) {
+  // Sélection des éléments du DOM
   const wrapper = document.querySelector('.my__card');
   const count = document.querySelector('.my__num');
   const notFind = document.querySelector('.my__notFind');
 
-  const errMessage = "Il n'y a pas des recettes correspondant";
-  // error
+  // Message d'erreur pour le cas où aucune recette ne correspond
+  const errMessage = "Il n'y a pas de recettes correspondantes";
+
+  // Vérification si la longueur des recettes est inférieure ou égale à 0
   data.recipes.length <= 0 ? (notFind.innerHTML = errMessage) : (notFind.innerHTML = '');
 
-  // count
+  // Affichage du nombre total de recettes
   count.innerHTML = `${data.recipes.length} recettes`;
 
-  // card
+  // Génération du contenu HTML en utilisant la fonction map sur les données des recettes
   wrapper.innerHTML = map(data.recipes, item => {
+    // Extraction des propriétés nécessaires de chaque recette
     let { id, image, name, time, description, ingredients } = item;
 
-    // info ingredient
+    // Génération des informations sur les ingrédients en utilisant la fonction map
     let info = map(ingredients, item => {
       let { ingredient, quantity, unit } = item;
 
-      // check unité
+      // Gestion des cas où la quantité ou l'unité est undefined
       quantity === undefined && (quantity = '');
       unit === undefined && (unit = '');
 
-      // Template literals
+      // Retourne le HTML pour chaque ingrédient
       return `
           <div class="ingredient__info">
             <h3>${ingredient}</h3>
@@ -36,7 +40,7 @@ export default function card(data) {
           </div>`;
     }).join('');
 
-    // Template literals
+    // Retourne le HTML pour chaque carte de recette
     return `
       <div data-index="${id}">
         <article>
@@ -67,5 +71,6 @@ export default function card(data) {
       </div>`;
   }).join('');
 
+  // Appel de la fonction select pour la gestion des filtres
   select(data);
 }
