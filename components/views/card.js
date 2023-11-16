@@ -60,7 +60,7 @@ export default function card(data) {
                 </p>
               </div>
               <div class="my__card-ingredient">
-                <h2>Ingrédients</h2>
+                <h2>INGRÉDIENTS</h2>
                 <article>
                   ${info}
                 </article>

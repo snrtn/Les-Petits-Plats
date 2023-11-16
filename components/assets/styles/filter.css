@@ -186,8 +186,13 @@
   font-weight: 600;
 }
 .tagsItem:hover img {
+  width: 1.4rem;
+  height: 1.4rem;
   filter: invert(82%) sepia(14%) saturate(1634%) hue-rotate(354deg) brightness(104%) contrast(98%);
 }
 .tagsItem:hover div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #1b1b1b;
 }

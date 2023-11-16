@@ -176,6 +176,19 @@ function tagFx(checkIng, checkApp, checkUst) {
           checkUst.every(ust => recipe.ustensils.some(recipeUst => recipeUst.includes(ust))),
       );
 
+      // checkIng.every(ing => recipe.ingredients.some(recipeIng => recipeIng.ingredient.includes(ing)))
+
+      // Ce code utilise les méthodes .every() et .some() des tableaux en JavaScript pour vérifier une condition entre deux tableaux : checkIng et recipe.ingredients.
+
+      // checkIng.every(ing => ...): Cette partie du code vérifie si la condition spécifiée dans la fonction fléchée est vraie pour chaque élément du tableau checkIng. Le paramètre ing représente chaque élément du tableau checkIng.
+
+      // recipe.ingredients.some(recipeIng => ...): Cette partie du code vérifie si la condition spécifiée dans la fonction fléchée est vraie pour au moins un élément du tableau recipe.ingredients. Le paramètre recipeIng représente chaque élément du tableau recipe.ingredients.
+
+      // recipeIng.ingredient.includes(ing): Cette partie vérifie si la valeur de la propriété ingredient de l'objet recipeIng contient la valeur ing. En d'autres termes, elle vérifie si la valeur actuelle de ingredient pour l'élément recipeIng en cours d'itération contient la valeur ing en cours d'itération dans le tableau checkIng.
+
+      // En résumé, le code vérifie si "tous les éléments du tableau checkIng sont inclus dans la propriété ingredient d'au moins un élément du tableau recipe.ingredients". Si c'est le cas, l'expression entière renvoie true, sinon elle renvoie false. Ce code peut être utilisé pour vérifier si tous les ingrédients de checkIng sont inclus dans au moins un élément de recipe.ingredients.
+
+      //
       // Conversion en objet pour la structure des données
       newData = { recipes: newData };
     }

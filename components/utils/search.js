@@ -1,7 +1,7 @@
 'use strict';
 
 import card from '../views/card.js';
-import { map, filter } from './fx.js';
+import { filter } from './fx.js';
 
 // Fonction de recherche
 export default function search(data) {
@@ -39,6 +39,11 @@ const start = (data, result, isCheck) => {
     ...filter(data.recipes, value => value.appliance.toLowerCase().includes(result)),
     ...filter(data.recipes, value => value.ustensils.some(el => el.toLowerCase().includes(result))),
   );
+  // .includes()
+  // La méthode .includes() en JavaScript est utilisée sur des chaînes de caractères ou des tableaux pour vérifier si une valeur spécifiée est présente dans la chaîne ou le tableau. Si la valeur est présente, la méthode renvoie true, sinon elle renvoie false.
+
+  // .some()
+  // La méthode .some() est utilisée sur un tableau en JavaScript pour vérifier si au moins un élément du tableau satisfait une condition spécifiée. Si c'est le cas, la méthode renvoie true, sinon elle renvoie false.ㄴ
 
   // crée un tableau vide pour stocker les éléments en double.
   const duplicate = [];
@@ -56,6 +61,15 @@ const start = (data, result, isCheck) => {
       duplicate.push(item);
     }
   }
+  // Set
+  // new Set() est une manière de créer un nouvel objet Set en JavaScript. Set est un objet intégré qui représente une collection de valeurs uniques, sans doublons.
+  // L'objet Set est utilisé pour stocker des valeurs uniques et éviter les doublons dans les données. Il préserve l'ordre d'insertion des valeurs.
+
+  // .has()
+  // La méthode .has() en JavaScript est utilisée sur des objets Set pour vérifier la présence d'un élément spécifié dans l'ensemble. Si l'élément est présent, la méthode renvoie true, sinon elle renvoie false.
+
+  // .add()
+  // La méthode .add() en JavaScript est utilisée sur les objets Set pour ajouter un nouvel élément à l'ensemble. Si l'élément est déjà présent, l'ensemble reste inchangé.
 
   newData = { recipes: duplicate.sort((a, b) => a.id - b.id) }; // Stockage des nouvelles données dans newData
 
@@ -63,6 +77,7 @@ const start = (data, result, isCheck) => {
   result.length === 0
     ? window.localStorage.setItem('SEARCH_DATA_KEY', JSON.stringify(data))
     : window.localStorage.setItem('SEARCH_DATA_KEY', JSON.stringify(newData));
+
   window.localStorage.setItem('ISCHECK_KEY', JSON.stringify(isCheck));
   window.localStorage.setItem('SEARCH_KEY', JSON.stringify(result));
 
