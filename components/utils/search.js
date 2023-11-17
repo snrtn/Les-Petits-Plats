@@ -24,7 +24,7 @@ export default function search(data) {
   });
 }
 
-const start = (data, result) => {
+const start = (data, result, isCheck) => {
   let newData = [];
   newData.push(
     ...data.recipes.filter(value => value.name.toLowerCase().includes(result)),
