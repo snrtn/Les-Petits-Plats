@@ -76,14 +76,22 @@ function tagFx(checkIng, checkApp, checkUst) {
 
   // Vérification de l'état de recherche et du contenu de la variable de recherche
   if (isCheck && search.length > 0) {
-    // Si la recherche est active et qu'une recherche spécifique a été effectuée...
+    // Si la recherche est activée et qu'une recherche spécifique a été effectuée...
+
+    // Vérification si le tag d'ingrédient de la recherche est inclus dans les tags d'ingrédients sélectionnés
     if (checkIng.includes(search)) {
       // Si le tag d'ingrédient est présent dans la liste, il est exclu et la recherche est mise à jour
+
+      // Vérification si la liste des tags d'ingrédients est vide
       if (checkIng.length < 1) {
+        // Si la liste est vide, appeler la fonction tagFx avec la recherche comme seul tag
         tagFx(checkIng, checkApp, checkUst, [search], [], []);
       } else {
+        // Si la liste n'est pas vide, trouver l'index du tag de recherche et le retirer de la liste
         const searchIndex = checkIng.indexOf(search);
         checkIng.splice(searchIndex, 1);
+
+        // Ensuite, appeler la fonction tagFx avec des listes vides pour les autres types de tags
         tagFx(checkIng, checkApp, checkUst, [], [], []);
       }
     }
@@ -100,11 +108,19 @@ function tagFx(checkIng, checkApp, checkUst) {
     if (checkIng.length || checkApp.length || checkUst.length) {
       // Filtrage des données de recherche en fonction des tags sélectionnés
       // Gestion des ingrédients
+      // Boucle à travers chaque ingrédient sélectionné
       for (let i = 0; i < checkIng.length; i++) {
+        // Récupération de l'ingrédient en cours d'itération
         const ingredient = checkIng[i];
+
+        // Boucle à travers chaque recette dans les données d'origine
         for (let j = 0; j < searchData.recipes.length; j++) {
+          // Récupération de la recette en cours d'itération
           const recipe = searchData.recipes[j];
+
+          // Vérification si l'ingrédient est inclus dans les ingrédients de la recette
           if (recipe.ingredients.some(recipeIngredient => recipeIngredient.ingredient.includes(ingredient))) {
+            // Ajout de la recette à l'ensemble de recettes uniques
             uniqueRecipes = new Set([...uniqueRecipes, recipe]);
           }
         }
@@ -143,70 +159,6 @@ function tagFx(checkIng, checkApp, checkUst) {
           checkApp.every(app => recipe.appliance.includes(app)) &&
           checkUst.every(ust => recipe.ustensils.some(recipeUst => recipeUst.includes(ust))),
       );
-
-      // Conversion en objet pour la structure des données
-      newSearchData = { recipes: newSearchData };
-    }
-  }
-
-  // Gestion des cas où la recherche est désactivée
-  if (isCheck === false) {
-    // Si la recherche est désactivée...
-    if (checkIng.length || checkApp.length || checkUst.length) {
-      // Filtrage des données originales en fonction des tags sélectionnés
-      // Gestion des ingrédients
-      // Boucle à travers chaque ingrédient sélectionné
-      for (let i = 0; i < checkIng.length; i++) {
-        // Récupération de l'ingrédient en cours d'itération
-        const ingredient = checkIng[i];
-
-        // Boucle à travers chaque recette dans les données d'origine
-        for (let j = 0; j < origin.recipes.length; j++) {
-          // Récupération de la recette en cours d'itération
-          const recipe = origin.recipes[j];
-
-          // Vérification si l'ingrédient est inclus dans les ingrédients de la recette
-          if (recipe.ingredients.some(recipeIngredient => recipeIngredient.ingredient.includes(ingredient))) {
-            // Ajout de la recette à l'ensemble de recettes uniques
-            uniqueRecipes = new Set([...uniqueRecipes, recipe]);
-          }
-        }
-      }
-
-      // Gestion des appareils
-      for (let i = 0; i < checkApp.length; i++) {
-        const appareil = checkApp[i];
-        for (let j = 0; j < origin.recipes.length; j++) {
-          const recipe = origin.recipes[j];
-          if (recipe.appliance.includes(appareil)) {
-            uniqueRecipes = new Set([...uniqueRecipes, recipe]);
-          }
-        }
-      }
-
-      // Gestion des ustensiles
-      for (let i = 0; i < checkUst.length; i++) {
-        const ustensil = checkUst[i];
-        for (let j = 0; j < origin.recipes.length; j++) {
-          const recipe = origin.recipes[j];
-          if (recipe.ustensils.some(recipeUstensil => recipeUstensil.includes(ustensil))) {
-            uniqueRecipes = new Set([...uniqueRecipes, recipe]);
-          }
-        }
-      }
-
-      // Filtrage des recettes uniques et conversion en tableau
-      newData = filter(Array.from(uniqueRecipes), Boolean);
-
-      // Filtrage additionnel en fonction des tags sélectionnés
-      newData = filter(
-        newData,
-        recipe =>
-          checkIng.every(ing => recipe.ingredients.some(recipeIng => recipeIng.ingredient.includes(ing))) &&
-          checkApp.every(app => recipe.appliance.includes(app)) &&
-          checkUst.every(ust => recipe.ustensils.some(recipeUst => recipeUst.includes(ust))),
-      );
-
       // checkIng.every(ing => recipe.ingredients.some(recipeIng => recipeIng.ingredient.includes(ing)))
 
       // Ce code utilise les méthodes .every() et .some() des tableaux en JavaScript pour vérifier une condition entre deux tableaux : checkIng et recipe.ingredients.
@@ -221,6 +173,48 @@ function tagFx(checkIng, checkApp, checkUst) {
 
       //
       // Conversion en objet pour la structure des données
+      newSearchData = { recipes: newSearchData };
+    }
+  }
+
+  // Gestion des cas où la recherche est désactivée
+  if (isCheck === false) {
+    if (checkIng.length || checkApp.length || checkUst.length) {
+      for (let i = 0; i < checkIng.length; i++) {
+        const ingredient = checkIng[i];
+        for (let j = 0; j < origin.recipes.length; j++) {
+          const recipe = origin.recipes[j];
+          if (recipe.ingredients.some(recipeIngredient => recipeIngredient.ingredient.includes(ingredient))) {
+            uniqueRecipes = new Set([...uniqueRecipes, recipe]);
+          }
+        }
+      }
+      for (let i = 0; i < checkApp.length; i++) {
+        const appareil = checkApp[i];
+        for (let j = 0; j < origin.recipes.length; j++) {
+          const recipe = origin.recipes[j];
+          if (recipe.appliance.includes(appareil)) {
+            uniqueRecipes = new Set([...uniqueRecipes, recipe]);
+          }
+        }
+      }
+      for (let i = 0; i < checkUst.length; i++) {
+        const ustensil = checkUst[i];
+        for (let j = 0; j < origin.recipes.length; j++) {
+          const recipe = origin.recipes[j];
+          if (recipe.ustensils.some(recipeUstensil => recipeUstensil.includes(ustensil))) {
+            uniqueRecipes = new Set([...uniqueRecipes, recipe]);
+          }
+        }
+      }
+      newData = filter(Array.from(uniqueRecipes), Boolean);
+      newData = filter(
+        newData,
+        recipe =>
+          checkIng.every(ing => recipe.ingredients.some(recipeIng => recipeIng.ingredient.includes(ing))) &&
+          checkApp.every(app => recipe.appliance.includes(app)) &&
+          checkUst.every(ust => recipe.ustensils.some(recipeUst => recipeUst.includes(ust))),
+      );
       newData = { recipes: newData };
     }
   }
