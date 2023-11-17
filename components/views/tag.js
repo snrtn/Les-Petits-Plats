@@ -99,28 +99,38 @@ function tagFx(checkIng, checkApp, checkUst) {
     // Si la recherche est activée...
     if (checkIng.length || checkApp.length || checkUst.length) {
       // Filtrage des données de recherche en fonction des tags sélectionnés
-      checkIng.forEach(ingredient => {
-        uniqueRecipes = new Set([
-          ...uniqueRecipes,
-          ...filter(searchData.recipes, tag =>
-            tag.ingredients.some(recipeIngredient => recipeIngredient.ingredient.includes(ingredient)),
-          ),
-        ]);
-      });
+      // Gestion des ingrédients
+      for (let i = 0; i < checkIng.length; i++) {
+        const ingredient = checkIng[i];
+        for (let j = 0; j < searchData.recipes.length; j++) {
+          const recipe = searchData.recipes[j];
+          if (recipe.ingredients.some(recipeIngredient => recipeIngredient.ingredient.includes(ingredient))) {
+            uniqueRecipes = new Set([...uniqueRecipes, recipe]);
+          }
+        }
+      }
 
-      checkApp.forEach(appareil => {
-        uniqueRecipes = new Set([
-          ...uniqueRecipes,
-          ...filter(searchData.recipes, tag => tag.appliance.includes(appareil)),
-        ]);
-      });
+      // Gestion des appareils
+      for (let i = 0; i < checkApp.length; i++) {
+        const appareil = checkApp[i];
+        for (let j = 0; j < searchData.recipes.length; j++) {
+          const recipe = searchData.recipes[j];
+          if (recipe.appliance.includes(appareil)) {
+            uniqueRecipes = new Set([...uniqueRecipes, recipe]);
+          }
+        }
+      }
 
-      checkUst.forEach(ustensil => {
-        uniqueRecipes = new Set([
-          ...uniqueRecipes,
-          ...filter(searchData.recipes, tag => tag.ustensils.some(recipeUstensil => recipeUstensil.includes(ustensil))),
-        ]);
-      });
+      // Gestion des ustensiles
+      for (let i = 0; i < checkUst.length; i++) {
+        const ustensil = checkUst[i];
+        for (let j = 0; j < searchData.recipes.length; j++) {
+          const recipe = searchData.recipes[j];
+          if (recipe.ustensils.some(recipeUstensil => recipeUstensil.includes(ustensil))) {
+            uniqueRecipes = new Set([...uniqueRecipes, recipe]);
+          }
+        }
+      }
 
       // Filtrage des recettes uniques et conversion en tableau
       newSearchData = filter(Array.from(uniqueRecipes), Boolean);
@@ -144,25 +154,46 @@ function tagFx(checkIng, checkApp, checkUst) {
     // Si la recherche est désactivée...
     if (checkIng.length || checkApp.length || checkUst.length) {
       // Filtrage des données originales en fonction des tags sélectionnés
-      checkIng.forEach(ingredient => {
-        uniqueRecipes = new Set([
-          ...uniqueRecipes,
-          ...filter(origin.recipes, tag =>
-            tag.ingredients.some(recipeIngredient => recipeIngredient.ingredient.includes(ingredient)),
-          ),
-        ]);
-      });
+      // Gestion des ingrédients
+      // Boucle à travers chaque ingrédient sélectionné
+      for (let i = 0; i < checkIng.length; i++) {
+        // Récupération de l'ingrédient en cours d'itération
+        const ingredient = checkIng[i];
 
-      checkApp.forEach(appareil => {
-        uniqueRecipes = new Set([...uniqueRecipes, ...filter(origin.recipes, tag => tag.appliance.includes(appareil))]);
-      });
+        // Boucle à travers chaque recette dans les données d'origine
+        for (let j = 0; j < origin.recipes.length; j++) {
+          // Récupération de la recette en cours d'itération
+          const recipe = origin.recipes[j];
 
-      checkUst.forEach(ustensil => {
-        uniqueRecipes = new Set([
-          ...uniqueRecipes,
-          ...filter(origin.recipes, tag => tag.ustensils.some(recipeUstensil => recipeUstensil.includes(ustensil))),
-        ]);
-      });
+          // Vérification si l'ingrédient est inclus dans les ingrédients de la recette
+          if (recipe.ingredients.some(recipeIngredient => recipeIngredient.ingredient.includes(ingredient))) {
+            // Ajout de la recette à l'ensemble de recettes uniques
+            uniqueRecipes = new Set([...uniqueRecipes, recipe]);
+          }
+        }
+      }
+
+      // Gestion des appareils
+      for (let i = 0; i < checkApp.length; i++) {
+        const appareil = checkApp[i];
+        for (let j = 0; j < origin.recipes.length; j++) {
+          const recipe = origin.recipes[j];
+          if (recipe.appliance.includes(appareil)) {
+            uniqueRecipes = new Set([...uniqueRecipes, recipe]);
+          }
+        }
+      }
+
+      // Gestion des ustensiles
+      for (let i = 0; i < checkUst.length; i++) {
+        const ustensil = checkUst[i];
+        for (let j = 0; j < origin.recipes.length; j++) {
+          const recipe = origin.recipes[j];
+          if (recipe.ustensils.some(recipeUstensil => recipeUstensil.includes(ustensil))) {
+            uniqueRecipes = new Set([...uniqueRecipes, recipe]);
+          }
+        }
+      }
 
       // Filtrage des recettes uniques et conversion en tableau
       newData = filter(Array.from(uniqueRecipes), Boolean);
