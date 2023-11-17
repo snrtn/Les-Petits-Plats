@@ -12,7 +12,15 @@ const app = async () => {
   search(data);
 
   card(data);
-  localStorage.setItem('DATA_KEY', JSON.stringify(data));
+  // Enregistrer les données d'origine dans le stockage local.
+  window.localStorage.setItem('ORIGIN_DATA_KEY', JSON.stringify(data));
 };
 
+// Exécuter la fonction principale lors du chargement de la page.
 window.addEventListener('load', app);
+
+// Réinitialiser les valeurs stockées localement avant de quitter la page.
+window.addEventListener('beforeunload', function () {
+  window.localStorage.setItem('ISCHECK_KEY', JSON.stringify(false));
+  window.localStorage.setItem('SEARCH_KEY', JSON.stringify(''));
+});
