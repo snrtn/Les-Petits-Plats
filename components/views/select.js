@@ -192,7 +192,7 @@ export default function select(data, arrIng, arrApp, arrUst) {
         (docIng.innerHTML = `<ul class="noCheck">
           <spen class="errIngredient err"></spen>
           ${mapIng}
-        	</ul>`));
+        </ul>`));
     });
   }
 
