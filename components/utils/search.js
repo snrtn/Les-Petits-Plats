@@ -39,11 +39,35 @@ const start = (data, result, isCheck) => {
     ...filter(data.recipes, value => value.appliance.toLowerCase().includes(result)),
     ...filter(data.recipes, value => value.ustensils.some(el => el.toLowerCase().includes(result))),
   );
-  // .includes()
-  // La méthode .includes() en JavaScript est utilisée sur des chaînes de caractères ou des tableaux pour vérifier si une valeur spécifiée est présente dans la chaîne ou le tableau. Si la valeur est présente, la méthode renvoie true, sinon elle renvoie false.
+  // ...filter(data.recipes, value => value.name.toLowerCase().includes(result))
+  // La méthode filter est exécutée pour chaque élément du tableau data.recipes.
+  // La fonction value => value.name.toLowerCase().includes(result) convertit la propriété name de chaque élément en minuscules, puis vérifie si cette propriété contient la chaîne de caractères result.
+  // Si c'est le cas, l'élément est conservé dans le tableau résultant. Sinon, il est supprimé.
+  // En fin de compte, le tableau filtré est renvoyé.
+  // Ce code permet d'extraire du tableau data.recipes uniquement les recettes dont la propriété name contient une certaine chaîne de caractères.
 
-  // .some()
-  // La méthode .some() est utilisée sur un tableau en JavaScript pour vérifier si au moins un élément du tableau satisfait une condition spécifiée. Si c'est le cas, la méthode renvoie true, sinon elle renvoie false.ㄴ
+  // includes
+  // Recherche dans le tableau : Elle permet de vérifier la présence d'un élément spécifique dans le tableau.
+  // Valeur de retour : Elle renvoie true ou false en fonction de la présence de l'élément.
+  // Sensibilité à la casse : Par défaut, elle est sensible à la casse. Cela signifie que 'banane' et 'Banane' sont considérés comme deux éléments distincts.
+  // Possibilité de spécifier un index de départ : La méthode includes permet de spécifier en deuxième argument l'index à partir duquel commencer la recherche.
+
+  // ...filter(data.recipes, value => value.ingredients.some(el => el.ingredient.toLowerCase().includes(result)))
+  // data.recipes : Il s'agit du tableau des recettes à filtrer.
+  // filter : C'est la méthode qui filtre les éléments du tableau.
+  // value => ... : C'est la fonction de rappel de la méthode filter, elle est exécutée pour chaque élément du tableau (value).
+  // value.ingredients : Cela récupère le tableau d'ingrédients de chaque recette.
+  // .some(el => el.ingredient.toLowerCase().includes(result)) : Cela vérifie si au moins l'un des ingrédients, représenté par el, satisfait une condition spécifiée. La condition est que la propriété ingredient de l'ingrédient, convertie en minuscules, contient la chaîne de caractères spécifiée (result).
+  // .toLowerCase() : Cela convertit la chaîne de caractères en minuscules pour éviter les problèmes de sensibilité à la casse.
+  // .includes(result) : Cela vérifie si la chaîne de caractères contient la sous-chaîne spécifiée.
+  // En résumé, ce code filtre les recettes du tableau data.recipes en ne retenant que celles dont au moins un ingrédient satisfait la condition de contenir la chaîne de caractères spécifiée (result).
+
+  // some
+  // Vérification de la condition : Elle exécute une fonction (condition) pour chaque élément du tableau, et si au moins un élément satisfait la condition, elle renvoie true.
+  // Valeur de retour : Elle renvoie true ou false.
+  // Fonction de rappel : La méthode some prend une fonction de rappel en argument, qui est exécutée pour chaque élément du tableau.
+  // Arrêt de la vérification du tableau : Dès qu'un élément satisfait la condition, la méthode renvoie immédiatement true sans vérifier le reste des éléments.
+  // En résumé, la méthode some est utile lorsque vous souhaitez savoir si au moins un élément d'un tableau satisfait une condition particulière.
 
   // crée un tableau vide pour stocker les éléments en double.
   const duplicate = [];
